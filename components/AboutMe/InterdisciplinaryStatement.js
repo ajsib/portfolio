@@ -14,7 +14,7 @@ const Statement = styled.div`
 
 const CreativeStatement = () => (
   <Statement>
-    Fusing Creative Interdisciplinary Passion into Data-Driven Full-Stack Development.
+    Creative Interdisciplinary Passion becomes <b>Data-Driven</ b> Full-Stack <b>Development</b>.
   </Statement>
 );
 
