@@ -5,7 +5,7 @@ import AboutMe from '../components/AboutMe/AboutMe';
 const IndexPage = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <AboutMe />
     </>
   );
