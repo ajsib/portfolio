@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router'; // Import useRouter from Next.js
 
 const Container = styled.div`
   padding: 40px;
@@ -157,7 +158,30 @@ const EducationItem = styled.div`
   }
 `;
 
+const Button = styled.a`
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #0C356A; /* You can choose your own color */
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0E4B75; /* Darken the button a bit on hover */
+  }
+`;
+
+
 const AboutMe = () => {
+  const router = useRouter();
+
+  // Function to handle navigation
+  const handleProjectClick = (url: string | URL | undefined) => {
+    window.open(url, '_blank'); // Opens the URL in a new tab
+  };
+
   return (
     <Container>
       <ProfileSection>
@@ -179,22 +203,22 @@ const AboutMe = () => {
 
       <CenteredSection>
         <ContentTitle>Projects</ContentTitle>
-        <ProjectContainer>
-          <ProjectItem>
+          <ProjectContainer>
+          <ProjectItem onClick={() => handleProjectClick('https://github.com/ajsib/meetingcoord')}>
             <h3>Meeting Coordination</h3>
             <Content>
               A MERN application for coordinating group meeting times. Utilized by teams at Queen&apos;s Data Analytics Association.
             </Content>
           </ProjectItem>
 
-          <ProjectItem>
+          <ProjectItem onClick={() => handleProjectClick('https://github.com/ajsib/headline')}>
             <h3>Headline Social</h3>
             <Content>
-              A social media platform focusing on text-based communication, designed for genuine connections. Built using the MERN stack.  
+              A social media platform focusing on text-based communication, designed for genuine connections. Built using the MERN stack.
             </Content>
           </ProjectItem>
 
-          <ProjectItem>
+          <ProjectItem onClick={() => handleProjectClick('https://github.com/ajsib/password_manager')}>
             <h3>Password Manager</h3>
             <Content>
               A secure password manager with public-private encryption features. Developed with React-Native, Qt (C++), Node-Express server, and SQL DB.
@@ -246,8 +270,12 @@ const AboutMe = () => {
       <ContactContainer>
         <ContentTitle>Get In Touch</ContentTitle>
         <Content>Feel free to reach out for any professional inquiries or collaborations.</Content>
-        <Content>Email: ajsibley6@gmail.com</Content>
-        <Content>Phone: +1.289.834.2566</Content>
+        <Button href="mailto:ajsibley6@gmail.com">Email Me</Button>
+        <Button href="tel:+12898342566">Call Me</Button>
+        <div style={{ marginBottom: '20px', marginTop:'20px' }}>
+          <span style={{ color: '#666', fontSize: '1.5rem' }}>and</span>
+        </div>
+        <Button href="/documents/AidanSibleyCV.pdf" download="Aidan_Sibley_Resume">Download My Resume</Button>
       </ContactContainer>
     </Container>
   );
