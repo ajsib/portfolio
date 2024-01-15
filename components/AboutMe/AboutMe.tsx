@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router'; // Import useRouter from Next.js
 
@@ -99,9 +99,7 @@ const ProjectContainer = styled.div`
 
 const ProjectItem = styled.div`
   transition: all 0.2s ease-in-out;
-  // ADD PADDING
   padding: 20px;
-  //  ROUND CORNERS
   border-radius: 5px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4); /* Uniform box shadow */
 
@@ -188,7 +186,7 @@ const AboutMe = () => {
         <ProfileImage src="/photos/aidanAvatar1.png" alt="Aidan Sibley" />
         <ProfileDetails>
           <Title>Aidan Sibley</Title>
-          <SubTitle>Computer Science Student, Army Reservist, Lead Developer</SubTitle>
+          <SubTitle>Computer Science Student, Army Reservist, Software Developer and Product Manager</SubTitle>
         </ProfileDetails>
      </ProfileSection>
      <Section>
@@ -241,6 +239,13 @@ const AboutMe = () => {
             <h3>Infantry Reservist, Canadian Armed Forces</h3>
             <LeftContent>
               Completed rigorous military training and contributed to various intensive courses. Recognized for resilience, teamwork, and performance under pressure.
+            </LeftContent>
+          </WorkItem>
+
+          <WorkItem>
+            <h3>Product Manager, Queen&apos;s Data Analytics Association</h3>
+            <LeftContent>
+              Guiding three teams of student developers through every phase of the product lifecycle, ensuring regular check-ins, and providing strategic direction to bring our software visions to fruition.
             </LeftContent>
           </WorkItem>
         </Section>
