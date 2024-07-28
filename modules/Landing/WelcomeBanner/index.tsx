@@ -1,7 +1,8 @@
-// @/modules/Landing/WelcomeBanner/index.tsx
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from "@emotion/react";
 import { useEffect, useState } from 'react';
+import CaretDown from '@/modules/UI/icons/CaretDown';
+import Video from "./components/Video";
 
 const bannerStyle = css`
   position: relative;
@@ -50,7 +51,23 @@ const overlayStyle = css`
   text-align: center;
 `;
 
-const textStyle = (isFadingOut: boolean) => css`
+const textStyle = (isFadingOut: boolean, text: string) => css`
+  color: #ddd;
+  text-shadow: 0 4px black;
+  animation: ${isFadingOut ? fadeOut : fadeIn} 500ms forwards;
+  word-spacing: 1rem;
+  ${text === "Developer & Innovator" && css`
+    font-size: 2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  `}
+`;
+
+const iconStyle = (isFadingOut: boolean) => css`
+  position: fixed;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
   animation: ${isFadingOut ? fadeOut : fadeIn} 500ms forwards;
 `;
 
@@ -96,9 +113,12 @@ const WelcomeBanner = () => {
 
   return (
     <div css={bannerStyle}>
-      <video css={videoStyle} src="/assets/head.mp4" autoPlay loop muted />
+      <Video />
       <div css={overlayStyle}>
-        <h1 css={textStyle(isFadingOut)}>{text}</h1>
+        <h1 css={textStyle(isFadingOut, text)}>{text}</h1>
+      </div>
+      <div css={iconStyle(nextText === "")}>
+        <CaretDown />
       </div>
     </div>
   );

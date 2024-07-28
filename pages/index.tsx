@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import WelcomeBanner from "@/modules/Landing/WelcomeBanner";
-import InfoCards from "@/modules/Landing/InfoCards";
+import AboutMe from "@/modules/Landing/AboutMe";
 import Footer from "@/modules/Landing/Footer";
 import Header from "@/modules/shared/Header";
 
@@ -18,7 +18,7 @@ const Landing = () => {
     <div css={containerStyle}>
       <Header threshold={200} />
       <WelcomeBanner />
-      <InfoCards />
+      <AboutMe />
       <Footer />
     </div>
   );

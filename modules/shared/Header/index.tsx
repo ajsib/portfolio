@@ -8,10 +8,8 @@ import { useEffect, useState, useRef } from 'react';
 const headerStyle = (isSticky: boolean, isHidden: boolean) => css`
   position: ${isSticky ? 'sticky' : 'fixed'};
   top: ${isSticky ? (isHidden ? '-5rem' : '0') : '1rem'};
-  left: 1rem;
-  right: 1rem;
   height: 4.5rem;
-  width: calc(100% - 2rem);
+  width: calc(100% - 3rem);
   background-color: var(--background-color);
   color: var(--text-color);
   display: flex;
@@ -32,8 +30,6 @@ const navStyle = css`
 const avatarContainerStyle = css`
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
