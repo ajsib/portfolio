@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import WelcomeBanner from "@/modules/Landing/WelcomeBanner";
-import InfoCards from "@/modules/Landing/InfoCards";
+import AboutMe from "@/modules/Landing/AboutMe";
 import Footer from "@/modules/Landing/Footer";
 
 const containerStyle = css`
@@ -15,7 +15,7 @@ const Landing = () => {
   return (
     <div css={containerStyle}>
       <WelcomeBanner />
-      <InfoCards />
+      <AboutMe />
       <Footer />
     </div>
   );

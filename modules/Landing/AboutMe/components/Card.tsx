@@ -50,4 +50,3 @@ const Card: React.FC<CardProps> = ({ title, icon, children, ...props }) => {
 };
 
 export default Card;
-s
