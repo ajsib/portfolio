@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import Image from 'next/image';
-import { useTheme } from '@/contexts/ThemeContext';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
+import Avatar from './components/Avatar';
 
 const headerStyle = (isSticky: boolean, isHidden: boolean) => css`
   position: ${isSticky ? 'sticky' : 'fixed'};
@@ -17,7 +16,7 @@ const headerStyle = (isSticky: boolean, isHidden: boolean) => css`
   justify-content: space-between;
   padding: 1rem;
   border-radius: ${isSticky ? '0 0 10px 10px' : '10px'};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   transition: background-color 0.3s, color 0.3s, top 0.3s, border-radius 0.3s;
 `;
@@ -25,22 +24,6 @@ const headerStyle = (isSticky: boolean, isHidden: boolean) => css`
 const navStyle = css`
   display: flex;
   gap: 20px;
-`;
-
-const avatarContainerStyle = css`
-  position: absolute;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-`;
-
-const avatarImageStyle = css`
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
 `;
 
 const buttonStyle = css`
@@ -61,7 +44,6 @@ type HeaderProps = {
 };
 
 const Header = ({ threshold = 120 }: HeaderProps) => {
-  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
   const currentPath = router.pathname;
   const [isSticky, setIsSticky] = useState(false);
@@ -120,12 +102,7 @@ const Header = ({ threshold = 120 }: HeaderProps) => {
           )
         )}
       </nav>
-      <div css={avatarContainerStyle}>
-        <Image src="/assets/avatar.png" alt="Avatar" width={56} height={56} css={avatarImageStyle} />
-      </div>
-      <button css={buttonStyle} onClick={toggleTheme}>
-        {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-      </button>
+      <Avatar />
     </header>
   );
 };

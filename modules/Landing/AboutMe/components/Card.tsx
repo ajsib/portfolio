@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { ReactNode } from 'react';
 
 const cardStyle = css`
   width: 100%; /* Make card take up full width of its grid cell */
@@ -29,7 +30,14 @@ const titleStyle = css`
   font-weight: 700;
 `;
 
-const Card = ({ title, icon, children, ...props }) => {
+interface CardProps {
+  title: string;
+  icon: ReactNode;
+  children: ReactNode;
+  [key: string]: any;
+}
+
+const Card: React.FC<CardProps> = ({ title, icon, children, ...props }) => {
   return (
     <div css={cardStyle} {...props}>
       <div css={thumbnailStyle}>
@@ -42,3 +50,4 @@ const Card = ({ title, icon, children, ...props }) => {
 };
 
 export default Card;
+s
