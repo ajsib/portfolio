@@ -18,8 +18,8 @@ const Highlight: React.FC<HighlightProps> = ({ keyword, contentKey }) => {
 
   useEffect(() => {
     // Load content based on the contentKey
-    if (popoverContent[contentKey]) {
-      setContent(popoverContent[contentKey]);
+    if (popoverContent[contentKey as keyof typeof popoverContent]) {
+      setContent(popoverContent[contentKey as keyof typeof popoverContent]);
     } else {
       setContent({
         title: 'Content not found',

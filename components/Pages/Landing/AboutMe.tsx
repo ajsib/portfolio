@@ -96,20 +96,20 @@ const AboutMe = () => {
       <h1 className="title">My Ethos</h1>
 
       <div className="quote">
-        "Innovation drives my passion; discipline shapes my approach."
+      &quot;Innovation drives my passion; discipline shapes my approach.&quot;
       </div>
 
       <div className="asymmetric-layout">
         <div className="text-block">
           <h2 className="section-title">Merging Worlds</h2>
           <p className="paragraph">
-            I’ve always believed in the power of blending seemingly disparate worlds. My journey started with the
-            rigorous discipline of the Canadian Army Reserves, where I learned that leadership is more than just a rank—it’s
+            I&apos;ve always believed in the power of blending seemingly disparate worlds. My journey started with the
+            rigorous discipline of the Canadian Army Reserves, where I learned that leadership is more than just a rank—it&apos;s
             a responsibility. This foundation set the stage for my transition into the realm of technology.
           </p>
           <div className="highlight-box">
             <p className="highlighted-text">
-              "The intersection of military precision and technical innovation defines my approach to project leadership."
+            &quot;The intersection of military precision and technical innovation defines my approach to project leadership.&quot;
             </p>
           </div>
         </div>
@@ -133,7 +133,7 @@ const AboutMe = () => {
           </p>
           <div className="highlight-box">
             <p className="highlighted-text">
-              "Building software is not just about writing code; it&apos;s about crafting solutions that drive impact."
+            &quot;Building software is not just about writing code; it&apos;s about crafting solutions that drive impact.&quot;
             </p>
           </div>
         </div>
@@ -144,13 +144,13 @@ const AboutMe = () => {
             Today, I lead cross-functional teams in developing innovative solutions that are as strategic as they are
             technically sound. My leadership is grounded in a commitment to continuous learning and a focus on
             delivering high-impact results. Whether architecting complex systems or guiding teams through challenges,
-            I’m driven by a relentless pursuit of excellence.
+            I&apos;m driven by a relentless pursuit of excellence.
           </p>
         </div>
       </div>
 
       <div className="quote">
-        "From the battlefield to the boardroom, my journey is a testament to the power of strategic thinking and innovation."
+      &quot;From the battlefield to the boardroom, my journey is a testament to the power of strategic thinking and innovation.&quot;
       </div>
       <div css={separatorStyles}></div>
     </section>
