@@ -1,0 +1,83 @@
+
+{
+    "COVID-19": {
+      "title": "COVID-19",
+      "description": "The COVID-19 pandemic was a global event that affected millions worldwide. It led to significant changes in how people live, work, and interact.",
+      "imageUrl": "/images/covid.jpg"
+    },
+    "Python": {
+      "title": "Python",
+      "description": "Python is a high-level programming language known for its readability and versatility. It is widely used in web development, data science, automation, and more.",
+      "imageUrl": "/images/python_logo.png"
+    },
+    "Infanteer": {
+      "title": "Infanteer",
+      "description": "An Infanteer is a soldier specializing in infantry operations, focusing on physical fitness and combat skills. The role is critical in the army's ground operations.",
+      "imageUrl": "/images/infantry.jpg"
+    },
+    "MilitaryTraining": {
+      "title": "Military Training",
+      "description": "Military basic training involves physical conditioning, tactical training, and leadership development. It is designed to prepare soldiers for the challenges of military life."
+    },
+    "ComputerScience": {
+      "title": "Computer Science",
+      "description": "The study of computer systems, algorithms, and programming languages. It includes both theoretical and practical approaches to computing."
+    },
+    "Java": {
+      "title": "Java",
+      "description": "Java is an object-oriented programming language known for its portability and robustness. It is widely used in enterprise environments.",
+      "imageUrl": "/images/java_logo.png"
+    },
+    "InfantryQualification": {
+      "title": "Infantry Qualification",
+      "description": "The Infantry Qualification course prepares soldiers for advanced infantry tactics and leadership roles, enhancing their ability to operate effectively in combat situations."
+    },
+    "HTML": {
+      "title": "HTML",
+      "description": "HTML (HyperText Markup Language) is the standard markup language for creating web pages and web applications. It forms the structure of a webpage."
+    },
+    "CSS": {
+      "title": "CSS",
+      "description": "CSS (Cascading Style Sheets) is used for describing the presentation of web pages, including layout, colors, and fonts. It allows for separation of content and presentation."
+    },
+    "JavaScript": {
+      "title": "JavaScript",
+      "description": "JavaScript is a versatile programming language that enables dynamic content on web pages. It is essential for creating interactive and responsive web applications."
+    },
+    "NextJs": {
+      "title": "Next.js",
+      "description": "Next.js is a React framework that enables server-side rendering and static website generation, offering improved performance and SEO for web applications.",
+      "imageUrl": "/images/nextjs_logo.png"
+    },
+    "MongoDB": {
+      "title": "MongoDB",
+      "description": "MongoDB is a NoSQL database known for its flexibility and scalability. It is widely used in modern web applications for handling large volumes of data."
+    },
+    "Linux": {
+      "title": "Linux",
+      "description": "Linux is an open-source operating system that is widely used for servers, desktops, and embedded systems. It is known for its security, stability, and flexibility.",
+      "imageUrl": "/images/linux_logo.png"
+    },
+    "OperatingSystems": {
+      "title": "Operating Systems",
+      "description": "Operating systems manage computer hardware and software resources, providing services for computer programs. Examples include Windows, macOS, and Linux."
+    },
+    "EnterpriseApps": {
+      "title": "Enterprise Applications",
+      "description": "Enterprise applications are software systems designed to support the operations of large organizations. They are typically scalable and highly integrated."
+    },
+    "Consulting": {
+      "title": "Consulting",
+      "description": "Consulting involves providing expert advice to organizations to help them improve their performance. It can cover a wide range of areas, including strategy, operations, and technology."
+    },
+    "AzureOpenAI": {
+      "title": "Azure OpenAI APIs",
+      "description": "Azure OpenAI Service provides access to OpenAI's powerful models, enabling AI-driven applications. It allows developers to integrate advanced AI capabilities into their applications.",
+      "imageUrl": "/images/azure_openai.png"
+    },
+    "NATOTIDEHackathon": {
+      "title": "NATO TIDE Hackathon",
+      "description": "NATO's TIDE Hackathon is an event where participants develop innovative solutions to military challenges. It fosters collaboration between military and civilian experts."
+    }
+  }
+  
