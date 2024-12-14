@@ -16,6 +16,9 @@ interface TimelineItemProps {
   position: 'left' | 'right';
 }
 
+const iconSize = 40; // Icon container size
+const lineThickness = 2; // Connector line thickness
+
 const iconMapping: { [key: string]: JSX.Element } = {
   FaUniversity: <FaUniversity />,
   FaLaptopCode: <FaLaptopCode />,
@@ -26,32 +29,52 @@ const iconMapping: { [key: string]: JSX.Element } = {
 const timelineItemStyles = (position: 'left' | 'right') => css`
   position: relative;
   width: 100%;
-  padding: 15px;
+  padding: 40px 0;
   background-color: transparent;
-  border: 1px solid var(--color-border);
-  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  text-align: ${position === 'left' ? 'right' : 'left'};
 
-  ${position === 'right' ? 'top: 0%;' : 'left: 0;'}
+  /* The small horizontal connector line, centered vertically on the icon */
+  &::after {
+    content: '';
+    position: absolute;
+    top: ${28 + iconSize / 2 - lineThickness / 2}px; 
+    /* 28px is icon top offset, icon is 40px high, so midpoint ~28 + 20 = 48px */
+    ${position === 'left' ? 'right: -30px;' : 'left: -30px;'}
+    width: 30px;
+    height: ${lineThickness}px;
+    background-color: var(--color-border);
+
+    @media (max-width: 700px) {
+      /* On mobile, no horizontal line since layout changes */
+      content: none;
+    }
+  }
 
   .icon {
     position: absolute;
-    top: 20px;
-    right: -10px;
+    top: 28px;
+    ${position === 'left' ? 'right: -70px;' : 'left: -70px;'}
     background-color: var(--color-primary);
     color: #fff;
-    width: 50px;
-    height: 50px;
+    width: ${iconSize}px;
+    height: ${iconSize}px;
+    border-radius: 50%;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    z-index: 10;
-  }
+    z-index: 2; /* Ensure icon is above the line */
 
-  .date {
-    font-size: 14px;
-    color: var(--color-muted);
-    margin-bottom: 10px;
+    @media (max-width: 700px) {
+      position: static;
+      margin-bottom: 20px;
+      align-self: flex-start;
+      width: ${iconSize}px;
+      height: ${iconSize}px;
+      margin-left: 0;
+    }
   }
 
   h3 {
@@ -59,31 +82,69 @@ const timelineItemStyles = (position: 'left' | 'right') => css`
     color: var(--color-primary);
     margin-bottom: 10px;
     font-family: 'Inter', sans-serif;
-    padding-right: 70px;
+    font-weight: 600;
+    @media (max-width: 700px) {
+      text-align: left;
+    }
+  }
+
+  .date {
+    font-size: 14px;
+    color: var(--color-secondary);
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+    @media (max-width: 700px) {
+      text-align: left;
+    }
   }
 
   .summary {
     font-size: 16px;
     color: var(--color-text);
-    text-align: justify-left;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-family: 'Merriweather', serif;
+    line-height: 1.6;
+    @media (max-width: 700px) {
+      text-align: left;
+    }
+  }
+
+  .image-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: ${position === 'left' ? 'flex-end' : 'flex-start'};
+
+    img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 700px) {
+      justify-content: flex-start;
+    }
   }
 
   .lessons-container {
-    background-color: var(--color-background);
-    padding-top: 10px;
-    border-bottom: 3px solid var(--color-primary);
-    margin: 25px 0px;
-    font-size: 12px;
+    margin: 20px 0;
+    padding: 10px 0;
+    font-size: 14px;
     color: var(--color-secondary);
     font-style: italic;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center; /* Center text horizontally */
-    // height: 40px; /* Ensure enough height for vertical centering */
+    line-height: 1.4;
+    border-top: 1px solid var(--color-border);
+    border-bottom: none;
+    font-family: 'Merriweather', serif;
+    text-align: ${position === 'left' ? 'right' : 'left'};
+
+    p {
+      margin: 0;
+    }
+
+    @media (max-width: 700px) {
+      text-align: left;
+    }
   }
 
   .read-more {
@@ -92,31 +153,28 @@ const timelineItemStyles = (position: 'left' | 'right') => css`
     display: inline-flex;
     align-items: center;
     cursor: pointer;
-    transition: all 0.2s ease;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+    transition: color 0.2s ease;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    ${position === 'left' ? 'align-self: flex-end;' : 'align-self: flex-start;'}
 
     &:hover {
+      color: var(--color-primary-hover);
       text-decoration: underline;
-      .arrow {
-        transform: translateX(5px);
-      }
     }
 
-    .arrow {
-      margin-left: 5px;
-      transition: transform 0.2s ease;
+    @media (max-width: 700px) {
+      align-self: flex-start;
     }
   }
 
-  @media (max-width: 768px) {
-    width: 100%;
-    left: 0;
-    margin-left: 20px;
+  @media (max-width: 700px) {
+    text-align: left;
+    padding: 20px 0;
 
-    .icon {
-      right: 10px;
+    /* On mobile, we remove the complex positioning and go to a simpler layout */
+    &::after {
+      content: none; /* No horizontal connector line in mobile layout */
     }
   }
 `;
@@ -133,15 +191,15 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
 }) => {
   return (
     <div css={timelineItemStyles(position)}>
-      <span className="date">{date}</span>
-      <h3>{title}</h3>
       <div className="icon">{iconMapping[icon]}</div>
+      <h3>{title}</h3>
+      <div className="date">{date}</div>
       <div className="summary">
         <SummaryParser summary={summary} />
       </div>
       {image && (
         <div className="image-container">
-          <Image src={image} alt={title} width={400} height={200} />
+          <Image src={image} alt={title} width={500} height={300} />
         </div>
       )}
       {lessonsLearned && (
@@ -154,7 +212,6 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
       {readMoreUrl && (
         <a href={readMoreUrl} className="read-more">
           Read More
-          <span className="arrow">➔</span>
         </a>
       )}
     </div>

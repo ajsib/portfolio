@@ -6,6 +6,8 @@ import PaperContent from '@/components/Shared/PaperContent';
 import HeroSection from '@/components/Pages/Landing/HeroSection';
 import AboutMe from '@/components/Pages/Landing/AboutMe'
 import Timeline from '@/components/Pages/Landing/Timeline';
+import Services from '@/components/Pages/Landing/ServicesSection';
+import CallToAction from '@/components/Pages/Landing/CTAsection';
 
 const containerStyle = css`
   min-height: 100vh;
@@ -26,6 +28,8 @@ const Home = () => {
         <HeroSection />
         <AboutMe />
         <Timeline />
+        <Services />
+        <CallToAction />
       </PaperContent>
     </div>
   );
