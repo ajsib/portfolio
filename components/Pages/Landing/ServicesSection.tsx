@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 import { css } from '@emotion/react';
 import { FaCogs, FaLightbulb, FaRocket } from 'react-icons/fa';
 import RightWedgeBold from '@/components/UI/icons/RightWedgeBold';
@@ -142,7 +142,16 @@ const servicesSectionStyles = css`
   }
 `;
 
-const ServiceCard = ({ icon, title, summary, details, isExpanded, onToggle }: any) => (
+interface ServiceCardProps {
+    icon: ReactNode;
+    title: string;
+    summary: string;
+    details: string;
+    isExpanded: boolean;
+    onToggle: () => void;
+  }
+
+const ServiceCard = ({ icon, title, summary, details, isExpanded, onToggle }: ServiceCardProps) => (
   <div
     className="service-card"
     onClick={onToggle}
