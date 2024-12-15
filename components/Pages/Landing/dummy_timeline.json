@@ -1,80 +1,53 @@
 {
     "timelineData": [
       {
-        "date": "March 2020",
-        "title": "Navigating the Pandemic and Discovering Programming",
-        "icon": "FaLaptopCode",
-        "summary": "Worked full-time at a grocery store during the <highlight keyword='COVID-19' contentKey='COVID-19'></highlight> pandemic. Began learning <highlight keyword='Python' contentKey='Python'></highlight>.",
-        "lessonsLearned": "Adaptability, Time Management, Self-Learning",
-        "readMoreUrl": "https://example.com/more-about-pandemic"
-      },
-      {
-        "date": "May 2021",
         "title": "Enlisted in the Canadian Armed Forces",
         "icon": "FaCrown",
         "summary": "Joined the Canadian Army Reserves as an <highlight keyword='Infanteer' contentKey='Infanteer'></highlight>. Underwent rigorous basic <highlight keyword='training' contentKey='MilitaryTraining'></highlight>.",
-        "image": "/images/CAF1.jpg",
-        "lessonsLearned": "Discipline, Leadership, Teamwork"
+        "lessonsLearned": "Discipline, Leadership, Teamwork",
+        "column": "left"
       },
       {
-        "date": "September 2021",
         "title": "Starting University at Queen's",
         "icon": "FaUniversity",
         "summary": "Enrolled in <highlight keyword='Computer Science' contentKey='ComputerScience'></highlight> at Queen's University. Learned <highlight keyword='Python' contentKey='Python'></highlight> and <highlight keyword='Java' contentKey='Java'></highlight> formally.",
         "image": "/images/Queens.jpg",
         "lessonsLearned": "Academic Excellence, Project Development, Problem Solving",
+        "column": "right",
         "readMoreUrl": "https://example.com/more-about-queens"
       },
       {
-        "date": "Summer 2022",
         "title": "Completing Infantry Qualification",
         "icon": "FaCrown",
         "summary": "Finished the <highlight keyword='Infantry Qualification' contentKey='InfantryQualification'></highlight> course, enhancing teamwork and leadership abilities.",
         "image": "/images/CAF2.jpg",
+        "column": "left",
         "lessonsLearned": "Resilience, Strategic Thinking, Collaboration"
       },
       {
-        "date": "Late 2022",
-        "title": "Exploring Web Development",
-        "icon": "FaLaptopCode",
-        "summary": "Self-taught <highlight keyword='HTML' contentKey='HTML'></highlight>, <highlight keyword='CSS' contentKey='CSS'></highlight>, <highlight keyword='JavaScript' contentKey='JavaScript'></highlight>; discovered <highlight keyword='Next.js' contentKey='NextJs'></highlight>.",
-        "image": "/images/web_development.jpg",
-        "lessonsLearned": "Self-Learning, Technology Adaptation, Innovation",
-        "readMoreUrl": "https://example.com/more-about-webdev"
+        "title": "Participating in NATO TIDE Hackathon",
+        "icon": "FaBriefcase",
+        "summary": "Built an AI-driven wargaming prototype under tight constraints. Showcased rapid prototyping skills, integrated advanced APIs, and embraced the thrill of competition.",
+        "image": "/images/nato.jpg",
+        "lessonsLearned": "AI Integration, Rapid Prototyping, Competitive Collaboration",
+        "column": "right",
+        "readMoreUrl": "https://example.com/more-about-hackathon"
       },
       {
-        "date": "Early 2023",
-        "title": "Creating 'Headline'",
-        "icon": "FaLaptopCode",
-        "summary": "Built 'Headline', a photoless social media platform using <highlight keyword='Next.js' contentKey='NextJs'></highlight> and <highlight keyword='MongoDB' contentKey='MongoDB'></highlight>.",
-        "image": "/images/Headline.png",
-        "lessonsLearned": "Full-Stack Development, Product Design, User Engagement"
-      },
-      {
-        "date": "Mid 2023",
         "title": "Becoming a Linux Power User",
         "icon": "FaLaptopCode",
         "summary": "Transitioned to using <highlight keyword='Linux' contentKey='Linux'></highlight> as my primary OS. Built a custom PC, performed advanced configurations, and deepened my understanding of <highlight keyword='operating systems' contentKey='OperatingSystems'></highlight>.",
-        "image": "/images/linux.jpg",
         "lessonsLearned": "Technical Proficiency, Problem Solving, Customization",
+        "column": "left",
         "readMoreUrl": "https://example.com/more-about-linux"
       },
       {
-        "date": "February 2024",
         "title": "Leading Enterprise Development",
         "icon": "FaBriefcase",
         "summary": "Became a developer at Canadian Army Headquarters. Led a team to build <highlight keyword='enterprise apps' contentKey='EnterpriseApps'></highlight> from the ground up, learning project roadmapping and <highlight keyword='consulting' contentKey='Consulting'></highlight>.",
-        "image": "/images/enterprise_development.jpg",
-        "lessonsLearned": "Leadership, Project Management, Strategic Planning"
-      },
-      {
-        "date": "March 2024",
-        "title": "Participating in NATO TIDE Hackathon",
-        "icon": "FaBriefcase",
-        "summary": "Built a wargaming LLM using <highlight keyword='Azure OpenAI APIs' contentKey='AzureOpenAI'></highlight> in <highlight keyword='Python' contentKey='Python'></highlight> during the <highlight keyword='NATO TIDE Hackathon' contentKey='NATOTIDEHackathon'></highlight>.",
-        "image": "/images/nato.jpg",
-        "lessonsLearned": "AI Integration, Rapid Prototyping, Competitive Collaboration",
-        "readMoreUrl": "https://example.com/more-about-hackathon"
+        "lessonsLearned": "Leadership, Project Management, Strategic Planning",
+        "column": "left",
+        "position": "right"
       }
     ]
   }

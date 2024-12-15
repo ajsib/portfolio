@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import TimelineItem from './TimelineItem';
 import timelineData from './dummy_timeline.json';
 import Masonry from 'react-masonry-css';
+import { timelineContainerStyles } from './styles';
 
 const sectionTitleStyles = css`
   font-size: 32px;
@@ -14,113 +15,100 @@ const sectionTitleStyles = css`
   margin-top: 60px;
 `;
 
-const timelineContainerStyles = css`
-  position: relative;
-  padding: 0 20px 60px;
-  background-color: var(--color-component-bg);
-  display: flex;
-  justify-content: center;
-  width: 100%;
-
-  /* Vertical line in the center for desktop */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 100%;
-    background-color: var(--color-border);
-
-    @media (max-width: 700px) {
-      /* On mobile, move line to the left */
-      left: 30px;
-      transform: none;
-    }
-  }
-`;
-
 const masonryStyles = css`
   display: flex;
   width: 100%;
   max-width: 1200px;
+  gap: 40px; /* Gap between columns for desktop */
 
   .timeline-column {
     background-clip: padding-box;
   }
 
-  /* Increase spacing between items to give more breathing room */
+  /* Give items breathing room */
   .timeline-column > div {
     position: relative;
-    margin-bottom: 140px; /* Increased from 100px to 140px */
+    margin-bottom: 80px;
   }
 
+  /* Left column adjustments */
   .timeline-column:first-of-type {
-    padding-right: 60px;
+    padding-right: 30px;
   }
 
+  /* Right column offset for a staggered and visually distinct layout */
   .timeline-column:last-of-type {
-    padding-left: 60px;
-    margin-top: 100px; /* Slightly more offset for visual balance */
+    padding-left: 30px;
+    margin-top: 140px; /* Adjust to push the right column further down */
   }
 
   @media (max-width: 700px) {
-    /* On mobile: single column, line on left side */
     flex-direction: column;
     align-items: flex-start;
-
-    .timeline {
-      width: 100%;
-    }
+    gap: 0;
 
     .timeline-column {
       padding: 0 !important;
       margin-top: 0 !important;
     }
 
-    &::before {
-      left: 20px;
-      transform: none;
+    .timeline-column > div {
+      margin-bottom: 40px;
+      padding-left: 40px; /* Keep content aligned with the vertical line */
     }
 
-    .timeline-column > div {
-      margin-bottom: 60px; /* Reduce spacing slightly on mobile for continuity */
-      padding-left: 60px; /* Indent content so that line and icon appear connected on the left */
-      position: relative;
+    &::before {
+      left: 20px;
     }
   }
 `;
 
 const Timeline: React.FC = () => {
-  const breakpointColumnsObj = {
-    default: 2, 
-    700: 1
-  };
+  const leftColumnItems = timelineData.timelineData.filter(
+    (item, index) => item.column === 'left' || (!item.column && index % 2 === 0)
+  );
+  const rightColumnItems = timelineData.timelineData.filter(
+    (item, index) => item.column === 'right' || (!item.column && index % 2 !== 0)
+  );
 
   return (
     <section>
-      <h2 css={sectionTitleStyles}>My Professional Journey</h2>
+      <h2 css={sectionTitleStyles}>My Journey</h2>
       <div css={timelineContainerStyles}>
         <Masonry
-          breakpointCols={breakpointColumnsObj}
+          breakpointCols={{ default: 2, 700: 1 }}
           className="timeline"
           columnClassName="timeline-column"
           css={masonryStyles}
         >
-          {timelineData.timelineData.map((event, index) => (
-            <TimelineItem
-              key={index}
-              date={event.date}
-              title={event.title}
-              summary={event.summary}
-              icon={event.icon}
-              image={event.image}
-              lessonsLearned={event.lessonsLearned}
-              readMoreUrl={event.readMoreUrl}
-              position={index % 2 === 0 ? 'left' : 'right'}
-            />
-          ))}
+          <div className="timeline-column">
+            {leftColumnItems.map((event, index) => (
+              <TimelineItem
+                key={`left-${index}`}
+                title={event.title}
+                summary={event.summary}
+                icon={event.icon}
+                image={event.image}
+                lessonsLearned={event.lessonsLearned}
+                readMoreUrl={event.readMoreUrl}
+                position="left"
+              />
+            ))}
+          </div>
+          <div className="timeline-column">
+            {rightColumnItems.map((event, index) => (
+              <TimelineItem
+                key={`right-${index}`}
+                title={event.title}
+                summary={event.summary}
+                icon={event.icon}
+                image={event.image}
+                lessonsLearned={event.lessonsLearned}
+                readMoreUrl={event.readMoreUrl}
+                position="right"
+              />
+            ))}
+          </div>
         </Masonry>
       </div>
     </section>

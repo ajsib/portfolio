@@ -1,36 +1,47 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Header from '@/components/Shared/Header';
 import PaperContent from '@/components/Shared/PaperContent';
 import HeroSection from '@/components/Pages/Landing/HeroSection';
-import AboutMe from '@/components/Pages/Landing/AboutMe'
+import AboutMe from '@/components/Pages/Landing/AboutMe';
 import Timeline from '@/components/Pages/Landing/Timeline';
 import Services from '@/components/Pages/Landing/ServicesSection';
 import CallToAction from '@/components/Pages/Landing/CTAsection';
+import DesktopSideMenu from '@/components/Shared/Header/DesktopSideMenu';
 
-const containerStyle = css`
+const containerStyle = (isMenuOpen: boolean) => css`
   min-height: 100vh;
   background-color: var(--color-background);
-  padding-top: ${-60}px; /* Adjust the padding to make the paper touch the header */
-  position: relative;
-  z-index: 0;
+  padding-left: ${isMenuOpen ? '300px' : '0'};
+  transition: padding-left 0.1s ease-out;
+  z-index: 2;
 `;
 
 const Home = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div css={containerStyle}>
+    <div>
       <Head>
         <title>Portfolio - Aidan Sibley</title>
       </Head>
-      <Header />
-      <PaperContent>
-        <HeroSection />
-        <AboutMe />
-        <Timeline />
-        <Services />
-        <CallToAction />
-      </PaperContent>
+      <Header toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+      <DesktopSideMenu isMenuOpen={isMenuOpen} />
+      <div css={containerStyle(isMenuOpen)}>
+        <PaperContent>
+          <HeroSection />
+          <AboutMe />
+          <Timeline />
+          <Services />
+          <CallToAction />
+        </PaperContent>
+      </div>
     </div>
   );
 };

@@ -6,7 +6,6 @@ import Image from 'next/image';
 import SummaryParser from './SummaryParser';
 
 interface TimelineItemProps {
-  date: string;
   title: string;
   summary: string;
   icon: string;
@@ -16,7 +15,7 @@ interface TimelineItemProps {
   position: 'left' | 'right';
 }
 
-const iconSize = 40; // Icon container size
+const iconSize = 40; // Icon size
 const lineThickness = 2; // Connector line thickness
 
 const iconMapping: { [key: string]: JSX.Element } = {
@@ -30,25 +29,22 @@ const timelineItemStyles = (position: 'left' | 'right') => css`
   position: relative;
   width: 100%;
   padding: 40px 0;
-  background-color: transparent;
   display: flex;
   flex-direction: column;
   text-align: ${position === 'left' ? 'right' : 'left'};
+  font-family: 'Inter', sans-serif;
 
-  /* The small horizontal connector line, centered vertically on the icon */
   &::after {
     content: '';
     position: absolute;
-    top: ${28 + iconSize / 2 - lineThickness / 2}px; 
-    /* 28px is icon top offset, icon is 40px high, so midpoint ~28 + 20 = 48px */
+    top: ${28 + iconSize / 2 - lineThickness / 2}px;
     ${position === 'left' ? 'right: -30px;' : 'left: -30px;'}
-    width: 30px;
+    // width: 30px;
     height: ${lineThickness}px;
     background-color: var(--color-border);
 
-    @media (max-width: 700px) {
-      /* On mobile, no horizontal line since layout changes */
-      content: none;
+    @media (max-width: 768px) {
+      content: none; /* Remove horizontal line on mobile */
     }
   }
 
@@ -65,46 +61,31 @@ const timelineItemStyles = (position: 'left' | 'right') => css`
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2; /* Ensure icon is above the line */
+    z-index: 2;
 
-    @media (max-width: 700px) {
+    @media (max-width: 768px) {
       position: static;
       margin-bottom: 20px;
       align-self: flex-start;
-      width: ${iconSize}px;
-      height: ${iconSize}px;
-      margin-left: 0;
     }
   }
 
   h3 {
     font-size: 20px;
+    font-weight: 700;
     color: var(--color-primary);
     margin-bottom: 10px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    @media (max-width: 700px) {
-      text-align: left;
-    }
-  }
-
-  .date {
-    font-size: 14px;
-    color: var(--color-secondary);
-    margin-bottom: 20px;
-    font-family: 'Inter', sans-serif;
-    @media (max-width: 700px) {
+    @media (max-width: 768px) {
       text-align: left;
     }
   }
 
   .summary {
     font-size: 16px;
+    line-height: 1.6;
     color: var(--color-text);
     margin-bottom: 20px;
-    font-family: 'Merriweather', serif;
-    line-height: 1.6;
-    @media (max-width: 700px) {
+    @media (max-width: 768px) {
       text-align: left;
     }
   }
@@ -121,28 +102,20 @@ const timelineItemStyles = (position: 'left' | 'right') => css`
       border: 1px solid var(--color-border);
     }
 
-    @media (max-width: 700px) {
-      justify-content: flex-start;
+    @media (max-width: 768px) {
+      justify-content: center;
     }
   }
 
   .lessons-container {
-    margin: 20px 0;
-    padding: 10px 0;
     font-size: 14px;
     color: var(--color-secondary);
     font-style: italic;
-    line-height: 1.4;
     border-top: 1px solid var(--color-border);
-    border-bottom: none;
-    font-family: 'Merriweather', serif;
-    text-align: ${position === 'left' ? 'right' : 'left'};
+    padding-top: 10px;
+    margin: 20px 0;
 
-    p {
-      margin: 0;
-    }
-
-    @media (max-width: 700px) {
+    @media (max-width: 768px) {
       text-align: left;
     }
   }
@@ -154,33 +127,29 @@ const timelineItemStyles = (position: 'left' | 'right') => css`
     align-items: center;
     cursor: pointer;
     transition: color 0.2s ease;
-    font-family: 'Inter', sans-serif;
     text-decoration: none;
-    ${position === 'left' ? 'align-self: flex-end;' : 'align-self: flex-start;'}
 
     &:hover {
       color: var(--color-primary-hover);
       text-decoration: underline;
     }
 
-    @media (max-width: 700px) {
-      align-self: flex-start;
+    @media (max-width: 768px) {
+      text-align: left;
     }
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 768px) {
     text-align: left;
     padding: 20px 0;
 
-    /* On mobile, we remove the complex positioning and go to a simpler layout */
     &::after {
-      content: none; /* No horizontal connector line in mobile layout */
+      content: none; /* Remove horizontal line in mobile layout */
     }
   }
 `;
 
 const TimelineItem: React.FC<TimelineItemProps> = ({
-  date,
   title,
   summary,
   icon,
@@ -193,7 +162,6 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
     <div css={timelineItemStyles(position)}>
       <div className="icon">{iconMapping[icon]}</div>
       <h3>{title}</h3>
-      <div className="date">{date}</div>
       <div className="summary">
         <SummaryParser summary={summary} />
       </div>

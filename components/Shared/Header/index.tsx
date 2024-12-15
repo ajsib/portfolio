@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Logo from '@/components/UI/icons/logo';
 import Hamburger from '@/components/UI/icons/hamburger';
-import ProfileIcon from '@/components/UI/icons/profile';
-import SideMenu from './SideMenu';
 import { useHeaderContext } from './HeaderContext';
 
 const paddingVertical = 10;
@@ -13,16 +11,25 @@ const paddingHorizontal = 18;
 const logoMargin = 18;
 const fontSizeBase = 18;
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+interface HeaderProps {
+  toggleMenu: () => void;
+  isMenuOpen: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
   const { isScrolled, headerHeight } = useHeaderContext();
+  const [isMobile, setIsMobile] = useState(false);
 
-  const toggleMenu = () => {
-    console.log('Menu toggled');
-    setIsMenuOpen((prevState) => !prevState);
-  };
+  // Detect screen size
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    handleResize(); // Initial detection
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  // Dynamic styles based on scroll position
   const headerStyles = css`
     display: flex;
     justify-content: space-between;
@@ -32,11 +39,10 @@ const Header = () => {
     background-color: var(--color-component-bg);
     border-bottom: 1px solid var(--color-border);
     user-select: none;
-    transition: height 0.2s ease;
     position: fixed;
     top: 0;
-    left: 0;      /* Ensure header starts from the left */
-    right: 0;     /* Ensure header stretches to the right */
+    left: 0;
+    right: 0;
     width: 100%;
     z-index: 1000;
   `;
@@ -44,12 +50,16 @@ const Header = () => {
   const leftContainerStyles = css`
     display: flex;
     align-items: center;
+
+    @media (max-width: 768px) {
+      justify-content: center;
+      width: 100%;
+    }
   `;
 
   const logoContainerStyles = css`
     display: flex;
     align-items: center;
-    height: 100%;
 
     svg {
       height: ${isScrolled ? fontSizeBase * 1.5 : fontSizeBase * 2}px;
@@ -63,6 +73,11 @@ const Header = () => {
       color: var(--color-primary);
       margin: 0;
       transition: font-size 0.2s ease;
+
+      @media (max-width: 768px) {
+        font-size: ${fontSizeBase * 1.3}px;
+        text-align: center;
+      }
     }
   `;
 
@@ -70,7 +85,7 @@ const Header = () => {
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-right: ${logoMargin}px;
+    ${isMobile ? 'margin-left: auto;' : 'margin-right: auto;'}
   `;
 
   const navStyles = css`
@@ -78,13 +93,11 @@ const Header = () => {
     align-items: center;
   `;
 
-  // New styles for the links container
   const linksContainerStyles = css`
     display: flex;
     align-items: center;
 
-    /* Hide the links when screen width is below 1000px */
-    @media (max-width: 1000px) {
+    @media (max-width: 768px) {
       display: none;
     }
 
@@ -103,70 +116,34 @@ const Header = () => {
     }
   `;
 
-  const profileContainerStyles = css`
-    display: flex;
-    align-items: center;
-    margin-left: ${paddingHorizontal}px;
-
-    &::before {
-      content: '';
-      display: block;
-      width: 1px;
-      height: 24px;
-      background-color: var(--color-text);
-      margin-right: ${paddingHorizontal}px;
-    }
-
-    button {
-      display: flex;
-      align-items: center;
-      padding: 6px 12px;
-      background-color: transparent;
-      cursor: pointer;
-      font-size: ${fontSizeBase}px;
-      color: var(--color-primary);
-      transition: background-color 0.2s ease-in-out;
-      border: none;
-
-      &:hover {
-        background-color: var(--color-hover-bg);
-      }
-
-      svg {
-        margin-right: 6px;
-      }
-    }
-  `;
-
   return (
     <>
       <header css={headerStyles}>
         <div css={leftContainerStyles}>
-          <div css={hamburgerStyles} onClick={toggleMenu}>
-            <Hamburger isOpen={isMenuOpen} size="28px" />
-          </div>
+          {!isMobile && (
+            <div css={hamburgerStyles} onClick={toggleMenu}>
+              <Hamburger isOpen={isMenuOpen} size="28px" />
+            </div>
+          )}
           <div css={logoContainerStyles}>
             <Logo color="var(--color-primary)" />
             <h1>Aidan Sibley</h1>
           </div>
+          {isMobile && (
+            <div css={hamburgerStyles} onClick={toggleMenu}>
+              <Hamburger isOpen={isMenuOpen} size="28px" />
+            </div>
+          )}
         </div>
         <nav css={navStyles}>
-          {/* Wrap the links in the linksContainerStyles */}
           <div css={linksContainerStyles}>
             <Link href="/my-story">My Story</Link>
             <Link href="/projects">Projects</Link>
             <Link href="/resume">Resume</Link>
             <Link href="/contact">Contact</Link>
           </div>
-          <div css={profileContainerStyles}>
-            <button>
-              <ProfileIcon size="20px" color="var(--color-primary)" />
-              Sign In
-            </button>
-          </div>
         </nav>
       </header>
-      {isMenuOpen && <SideMenu />} {/* Conditionally render the SideMenu */}
     </>
   );
 };
