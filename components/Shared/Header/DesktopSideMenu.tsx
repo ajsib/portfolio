@@ -16,65 +16,105 @@ const desktopSideMenuStyles = (isMenuOpen: boolean) => css`
   border-right: 1px solid var(--color-border);
   z-index: 1;
   transform: translateX(${isMenuOpen ? '0' : '-100%'});
-  transition: transform 0.1s ease-out;
+  transition: transform 0.2s ease-out;
   padding-top: ${HEADER_HEIGHT}px;
 `;
 
 const menuContentStyles = css`
+  flex: 1;
+  font-family: 'Inter', sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: 20px;
-  font-family: 'Inter', sans-serif;
+  justify-content: space-between; /* Align Sign In at the bottom */
 
+  /* Section Titles */
   .section-title {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Merriweather', serif; /* Updated font */
     color: var(--color-primary);
     margin-bottom: 12px;
+    text-transform: uppercase;
+    padding-left: 10px;
+    border-left: 4px solid var(--color-primary);
   }
 
+  /* Navigation List */
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
 
     li {
-      margin-bottom: 16px;
-      font-size: 18px;
+      margin-bottom: 12px;
 
       a {
         text-decoration: none;
+        font-size: 16px;
+        font-weight: 400;
         color: var(--color-text);
-        transition: color 0.2s ease, transform 0.2s ease;
+        display: block;
+        padding: 12px 20px; /* Increased padding for taller links */
+        transition: color 0.2s ease, background-color 0.2s ease, border-left 0.2s ease;
+        border-left: 4px solid transparent; /* Left border for hover effect */
 
         &:hover {
           color: var(--color-link);
-          transform: translateX(5px);
+          background-color: var(--color-alt-bg);
+          border-left: 4px solid var(--color-primary);
         }
       }
 
-      &.active {
-        a {
-          font-weight: 700;
-          color: var(--color-primary);
-        }
+      &.active a {
+        font-weight: 600;
+        color: var(--color-primary);
+        background-color: var(--color-alt-bg);
+        border-left: 4px solid var(--color-primary);
       }
     }
   }
 
+  /* Dividers */
   .divider {
     height: 1px;
     background-color: var(--color-border);
-    margin: 20px 0;
+    margin: 16px 0;
+    opacity: 0.6;
   }
 
+  /* Secondary Links */
   .secondary-links {
-    margin-top: auto;
+    display: flex;
+    flex-direction: column;
 
     .muted-link {
-      font-size: 16px;
+      font-size: 14px;
       color: var(--color-muted);
+      text-decoration: none;
+      padding: 8px 20px;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--color-link);
+      }
+    }
+
+    /* Sign In Link Styling */
+    .sign-in {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-primary);
+      text-decoration: none;
+      padding: 14px 20px;
+      text-align: center;
+      background-color: var(--color-component-bg);
+      border-top: 1px solid var(--color-border);
+      transition: background-color 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        background-color: var(--color-alt-bg);
+        color: var(--color-link);
+      }
     }
   }
 `;
@@ -82,7 +122,8 @@ const menuContentStyles = css`
 const DesktopSideMenu: React.FC<DesktopSideMenuProps> = ({ isMenuOpen }) => {
   return (
     <div css={desktopSideMenuStyles(isMenuOpen)}>
-<div css={menuContentStyles}>
+      <div css={menuContentStyles}>
+        {/* Main Navigation */}
         <div>
           <h3 className="section-title">Navigation</h3>
           <ul>
@@ -103,11 +144,12 @@ const DesktopSideMenu: React.FC<DesktopSideMenuProps> = ({ isMenuOpen }) => {
 
         <div className="divider" />
 
+        {/* Explore Section */}
         <div>
           <h3 className="section-title">Explore</h3>
           <ul>
             <li>
-              <a href="/gallery" aria-label="Gallery App">Gallery</a>
+              <a href="/gallery" aria-label="Gallery">Gallery</a>
             </li>
             <li>
               <a href="/task-tracker" aria-label="Task Tracker">Task Tracker</a>
@@ -123,10 +165,10 @@ const DesktopSideMenu: React.FC<DesktopSideMenuProps> = ({ isMenuOpen }) => {
 
         <div className="divider" />
 
+        {/* Secondary Links */}
         <div className="secondary-links">
-          <a href="/terms" className="muted-link">Terms of Use</a>
-          <br />
           <a href="/privacy" className="muted-link">Privacy Policy</a>
+          <a href="/sign-in" className="sign-in">Sign In</a>
         </div>
       </div>
     </div>

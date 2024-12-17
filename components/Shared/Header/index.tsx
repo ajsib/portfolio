@@ -7,7 +7,7 @@ import Hamburger from '@/components/UI/icons/hamburger';
 
 const paddingVertical = 10;
 const paddingHorizontal = 18;
-const logoMargin = 18;
+const logoMargin = 12;
 const fontSizeBase = 18;
 
 interface HeaderProps {

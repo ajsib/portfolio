@@ -16,21 +16,23 @@ const mobileSideMenuStyles = (isMenuOpen: boolean) => css`
   background-color: var(--color-component-bg);
   z-index: 999;
   transform: translateY(${isMenuOpen ? '0' : `-${MOBILE_MENU_HEIGHT}px`});
-  transition: transform 0.1s ease-out;
+  transition: transform 0.2s ease-out;
   padding-top: ${HEADER_HEIGHT}px;
   border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
 `;
 
-const topNavigationStyles = css`
+const topNavStyles = css`
+  background-color: var(--color-background);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: var(--color-background);
+  padding: 10px 0;
   border-bottom: 1px solid var(--color-border);
-  padding: 8px 0;
 
   a {
     text-decoration: none;
@@ -38,7 +40,7 @@ const topNavigationStyles = css`
     font-weight: 600;
     color: var(--color-primary);
     font-family: 'Inter', sans-serif;
-    transition: color 0.1s ease;
+    transition: color 0.2s ease;
 
     &:hover {
       color: var(--color-link);
@@ -46,42 +48,51 @@ const topNavigationStyles = css`
   }
 `;
 
-const linkListStyles = css`
+const secondaryNavStyles = css`
   flex: 1;
+  background-color: var(--color-alt-bg);
   overflow-y: auto;
-  padding: 12px 0;
+  padding: 10px 0;
 
   ul {
     list-style: none;
-    padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 0;
   }
 
   li {
-    margin: 10px 0;
+    margin: 8px 20px;
 
     a {
       text-decoration: none;
-      font-size: 16px;
-      font-family: 'Inter', sans-serif;
+      font-size: 14px;
       color: var(--color-text);
+      font-family: 'Inter', sans-serif;
       transition: color 0.2s ease;
 
       &:hover {
         color: var(--color-link);
+        text-decoration: underline;
       }
     }
+  }
+
+  h4 {
+    margin: 12px 20px 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 4px;
   }
 `;
 
 const MobileSideMenu: React.FC<MobileSideMenuProps> = ({ isMenuOpen }) => {
   return (
     <nav css={mobileSideMenuStyles(isMenuOpen)} aria-label="Mobile Navigation">
-      {/* Top Navigation Links */}
-      <div css={topNavigationStyles}>
+      {/* Top Navigation */}
+      <div css={topNavStyles}>
         <a href="/work" aria-label="Work">Work</a>
         <a href="/studio" aria-label="Studio">Studio</a>
         <a href="/insights" aria-label="Insights">Insights</a>
@@ -89,20 +100,13 @@ const MobileSideMenu: React.FC<MobileSideMenuProps> = ({ isMenuOpen }) => {
       </div>
 
       {/* Secondary Links */}
-      <div css={linkListStyles}>
+      <div css={secondaryNavStyles}>
+        <h4>Explore</h4>
         <ul>
-          <li>
-            <a href="/gallery" aria-label="Gallery App">Gallery</a>
-          </li>
-          <li>
-            <a href="/task-tracker" aria-label="Task Tracker">Task Tracker</a>
-          </li>
-          <li>
-            <a href="/code-lab" aria-label="Code Lab">Code Lab</a>
-          </li>
-          <li>
-            <a href="/changelog" aria-label="Changelog">Changelog</a>
-          </li>
+          <li><a href="/gallery" aria-label="Gallery App">Gallery</a></li>
+          <li><a href="/task-tracker" aria-label="Task Tracker">Task Tracker</a></li>
+          <li><a href="/code-lab" aria-label="Code Lab">Code Lab</a></li>
+          <li><a href="/changelog" aria-label="Changelog">Changelog</a></li>
         </ul>
       </div>
     </nav>

@@ -15,9 +15,9 @@ import { MOBILE_MENU_HEIGHT, HEADER_HEIGHT } from '@/components/Shared/Header/st
 
 const containerStyle = (isMenuOpen: boolean, isMobile: boolean) => css`
   background-color: var(--color-background);
-  transition: padding-left 0.1s ease-out, padding-top 0.1s ease-out;
+  transition: padding-left 0.2s ease-out, padding-top 0.2s ease-out;
   padding-left: ${isMenuOpen && !isMobile ? '300px' : '0'};
-  padding-top: ${isMenuOpen && isMobile ? `${MOBILE_MENU_HEIGHT - HEADER_HEIGHT}px` : '0'};
+  padding-top: ${isMenuOpen && isMobile ? `${(MOBILE_MENU_HEIGHT - HEADER_HEIGHT) / 2}px` : '0'};
   z-index: 2;
 `;
 
