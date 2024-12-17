@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Logo from '@/components/UI/icons/logo';
 import Hamburger from '@/components/UI/icons/hamburger';
-import { useHeaderContext } from './HeaderContext';
 
 const paddingVertical = 10;
 const paddingHorizontal = 18;
@@ -17,7 +16,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
-  const { isScrolled, headerHeight } = useHeaderContext();
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect screen size
@@ -34,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: ${headerHeight}px;
+    height: 60px;
     padding: ${paddingVertical}px ${paddingHorizontal}px;
     background-color: var(--color-component-bg);
     border-bottom: 1px solid var(--color-border);
@@ -62,14 +60,14 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
     align-items: center;
 
     svg {
-      height: ${isScrolled ? fontSizeBase * 1.5 : fontSizeBase * 2}px;
+      height: 35px;
       width: auto;
       margin: 0 ${logoMargin}px;
       transition: height 0.2s ease;
     }
 
     h1 {
-      font-size: ${isScrolled ? fontSizeBase * 1.5 : fontSizeBase * 1.75}px;
+      font-size: 28px;
       color: var(--color-primary);
       margin: 0;
       transition: font-size 0.2s ease;
@@ -137,10 +135,10 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
         </div>
         <nav css={navStyles}>
           <div css={linksContainerStyles}>
-            <Link href="/my-story">My Story</Link>
-            <Link href="/projects">Projects</Link>
-            <Link href="/resume">Resume</Link>
-            <Link href="/contact">Contact</Link>
+            <Link href="/work">Work</Link>
+            <Link href="/studio">Studio</Link>
+            <Link href="/insights">Insights</Link>
+            <Link href="/contact">Connect</Link>
           </div>
         </nav>
       </header>

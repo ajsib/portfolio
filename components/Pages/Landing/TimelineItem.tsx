@@ -3,7 +3,6 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { FaUniversity, FaLaptopCode, FaBriefcase, FaCrown } from 'react-icons/fa';
 import Image from 'next/image';
-import SummaryParser from './SummaryParser';
 
 interface TimelineItemProps {
   title: string;
@@ -52,8 +51,8 @@ const timelineItemStyles = (position: 'left' | 'right') => css`
     position: absolute;
     top: 28px;
     ${position === 'left' ? 'right: -70px;' : 'left: -70px;'}
-    background-color: var(--color-primary);
-    color: #fff;
+    background-color: var(--color-primary); /* Keep the background color */
+    color: var(--color-background); /* Match the icon color with the background */
     width: ${iconSize}px;
     height: ${iconSize}px;
     border-radius: 50%;
@@ -69,6 +68,7 @@ const timelineItemStyles = (position: 'left' | 'right') => css`
       align-self: flex-start;
     }
   }
+
 
   h3 {
     font-size: 20px;
@@ -163,7 +163,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
       <div className="icon">{iconMapping[icon]}</div>
       <h3>{title}</h3>
       <div className="summary">
-        <SummaryParser summary={summary} />
+        {summary}
       </div>
       {image && (
         <div className="image-container">

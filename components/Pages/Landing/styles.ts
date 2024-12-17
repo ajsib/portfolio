@@ -54,7 +54,8 @@ export const heroSectionStyles = css`
       font-weight: 700;
       margin-bottom: 16px;
       color: var(--color-primary);
-      font-family: 'Inter', sans-serif;
+      // font-family: 'Inter', sans-serif;
+      font-family: 'Merriweather', serif;
 
       @media (max-width: 768px) {
         font-size: 30px; /* Slightly smaller headline for mobile */
@@ -231,7 +232,6 @@ export const timelineContainerStyles = css`
 
 
 export const servicesSectionStyles = css`
-  user-select: none;
   padding: 80px 20px;
   background-color: var(--color-component-bg);
   text-align: center;

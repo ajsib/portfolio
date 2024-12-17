@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import Image from 'next/image';
-import { useHeaderContext } from '@/components/Shared/Header/HeaderContext';
 import { heroSectionStyles } from './styles';
+import { HEADER_HEIGHT } from '@/components/Shared/Header/styles';
 
-// Define constants for font sizes and spacin
+// Define constants for font sizes and spacing
 const separatorColor = 'var(--color-border)'; // Using the border color for a formal line
-
-
 
 const separatorStyles = css`
   width: 100%;
@@ -16,12 +14,14 @@ const separatorStyles = css`
   margin: 20px 0; /* Adjust the space around the line for formality */
 `;
 
-const HeroSection = () => {
-  const { headerHeight } = useHeaderContext();
+const heroContainerStyles = css`
+  padding-top: ${HEADER_HEIGHT};
+`;
 
+const HeroSection = () => {
   return (
     <>
-      <div css={heroSectionStyles} style={{ paddingTop: headerHeight }}>
+      <div css={[heroSectionStyles, heroContainerStyles]}>
         <div className="image-container">
           <Image
             src="/images/me.webp"

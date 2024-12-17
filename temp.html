@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Executive Resume for Aidan Sibley">
+    <title>Resume - Aidan Sibley</title>
+    <style>
+        :root {
+            --color-primary: #0078d4; /* Azure Blue */
+            --color-secondary: #4a4a4a; /* Neutral Darker Gray */
+            --color-accent: #a0a0a0; /* Neutral Gray Accent */
+            --color-background: #ffffff; /* White Background for Printing */
+            --color-text: #323130; /* Main Text Color */
+            --color-muted: #7a7a7a; /* Muted Text Color */
+            --color-border: #c8c8c8; /* Light Gray Border */
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            /* margin: 0.5in; */
+            padding: 0;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 9.5in;
+            margin: 0 auto;
+            /* padding: 20px; */
+            background: var(--color-background);
+        }
+
+        h1, h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--color-primary);
+        }
+
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            margin: 0 0 10px 0;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin: 8px 0 5px 0;
+        }
+
+        p {
+            font-size: 16px;
+            font-family: 'Source Sans Pro', sans-serif;
+            margin-top: 5px;
+            margin-bottom: 3px;
+        }
+
+        .section {
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--color-secondary);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--color-primary);
+            padding-bottom: 4px;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: var(--color-secondary);
+            font-size: 16px;
+        }
+
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .contact-item {
+            margin-right: 10px;
+        }
+
+        .list {
+            margin: 0;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 30px;
+            height: auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 20px;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin: 0;
+            color: var(--color-primary);
+        }
+
+        .header .highlight {
+            font-size: 16px;
+            color: var(--color-muted);
+            margin: 5px 0 0 0;
+        }
+
+        @media print {
+            body {
+                /* margin: 0.5in; */
+                padding: 0;
+                background: var(--color-background);
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>Aidan Sibley</h1>
+                <p class="highlight">Strategic Thinker. Project Lead. Software Architect.</p>
+            </div>
+            <div class="logo">
+                <img src="file:///home/aidan/projects/ajsibley/portfolio-18-sep-24/aidan-portfolio/logo.svg" alt="Aidan Sibley Logo">
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="section">
+            <div class="section-title">Executive Summary</div>
+            <p>
+                Visionary leader with a proven record of delivering enterprise-level innovation and scalable solutions. Combining military discipline, technical expertise, and business acumen, I excel at driving digital transformation, optimizing workflows, and leading high-impact teams. From spearheading organizational transformation at Canadian Army Headquarters to developing AI-powered solutions for NATO, I bring clarity, structure, and purpose to complex challenges. With a focus on leadership, adaptability, and results, I align strategic vision with precise execution.
+            </p>
+        </div>
+
+        <!-- Professional Experience -->
+        <div class="section">
+            <div class="section-title">Professional Experience</div>
+            <h2>Software Developer & Product Manager</h2>
+            <p><strong>Canadian Army Headquarters</strong> | June 2023 – Present</p>
+            <ul class="list">
+                <li>Started and led a departmental transformation project, developing a system that improved efficiency by 200% and supported 60+ active users.</li>
+                <li>Collaborated with teams to understand unique challenges, designed custom workflows, and created clear processes to ensure sustainable impact.</li>
+                <li>Orchestrated every stage of the project, from discovery and planning to deployment and ongoing improvements, ensuring long-term success.</li>
+                <li>Managed deployments using modern infrastructure practices, enabling rapid iteration and seamless scalability.</li>
+            </ul>
+            
+            <h2>Infantry Reservist</h2>
+            <p><strong>Canadian Armed Forces</strong> | April 2021 – Present</p>
+            <ul class="list">
+                <li>Completed rigorous training, including the <span class="highlight">Basic Military Qualification</span> and <span class="highlight">Infantry DP1</span>, earning top candidate recognition from Course Officer.</li>
+                <li>Developed resilience, team cohesion, and adaptability under high-pressure environments, skills transferable to leadership and technical roles.</li>
+                <li>Supported the <span class="highlight">Peace Support Training Centre</span>, contributing to the execution of the <span class="highlight">Hazardous Environment Training course</span> for Global Affairs Canada personnel, enhancing the preparedness of diplomats for high-risk missions.</li>
+            </ul>
+
+
+            <h2>Developer: Wargame Engine Prototype</h2>
+            <p><strong>NATO TIDE Hackathon</strong> | 2024</p>
+            <ul class="list">
+                <li>Designed and developed <span class="highlight">Mutable Destruction</span>, a modular wargame engine integrating AI to interpret inputs, simulate opposition behavior, and generate narrative outputs.</li>
+                <li>Led a high-impact demonstration of adaptable wargame mechanics, showcasing use cases in training, experimentation, and decision-making for senior military leaders.</li>
+                <li>Delivered a functional prototype in under 72 hours, demonstrating expertise in <span class="highlight">rapid prototyping</span>, modular design, and cross-disciplinary collaboration.</li>
+            </ul>
+            
+        </div>
+<!-- Core Competencies -->
+<div class="section">
+    <div class="section-title">Core Competencies</div>
+    <ul class="list">
+        <li>Leadership in driving enterprise-wide projects, from ideation to execution, aligning technical and organizational goals.</li>
+        <li>Expertise in crafting streamlined workflows and systems that enhance operational efficiency and team collaboration.</li>
+        <li>Proven ability to architect scalable solutions and manage deployments using modern development and cloud practices.</li>
+        <li>Deep understanding of systems design and infrastructure, with a focus on maintainability and adaptability for future growth.</li>
+    </ul>
+</div>
+
+
+        <!-- Education -->
+        <div class="section">
+            <div class="section-title">Education</div>
+            <p>
+                <strong>Queen's University</strong> | Specialization in Computer Science<br>
+                <strong>Data Analytics Certificate</strong> | Advanced Machine Learning and Data Analytics
+            </p>
+        </div>
+
+        <!-- Contact -->
+        <div class="section">
+            <div class="section-title">Contact Information</div>
+            <div class="contact">
+                <div class="contact-item"><strong>Email:</strong> <a href="mailto:contact@ajsibley.com?subject=Contact%20via%20Resume" target="_blank" style="text-decoration: underline; color: var(--color-primary);">contact@ajsibley.com</a></div>
+                <div class="contact-item"><strong>Website:</strong> <a href="https://ajsibley.com" target="_blank" style="text-decoration: underline; color: var(--color-primary);">ajsibley.com</a></div>
+                <div class="contact-item"><strong>Phone:</strong> <a href="tel:+11234567890" target="_blank" style="text-decoration: underline; color: var(--color-primary);">+1 289 834 2566</a></div>
+                <div class="contact-item"><span style="font-weight: bold;">LinkedIn:</span> <a href="https://linkedin.com/in/aidansibley" target="_blank" style="text-decoration: underline; color: var(--color-primary);">aidansibley</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
