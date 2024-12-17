@@ -58,6 +58,7 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
   const logoContainerStyles = css`
     display: flex;
     align-items: center;
+    padding-left: 4px;
 
     svg {
       height: 35px;

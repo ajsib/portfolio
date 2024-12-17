@@ -11,32 +11,33 @@ const desktopSideMenuStyles = (isMenuOpen: boolean) => css`
   top: 0;
   left: 0;
   height: 100vh;
-  width: 301px;
+  width: 300px;
   background-color: var(--color-component-bg);
   border-right: 1px solid var(--color-border);
   z-index: 1;
   transform: translateX(${isMenuOpen ? '0' : '-100%'});
   transition: transform 0.2s ease-out;
-  padding-top: ${HEADER_HEIGHT}px;
+  padding-top: ${HEADER_HEIGHT + 18}px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
 `;
 
 const menuContentStyles = css`
   flex: 1;
-  font-family: 'Inter', sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Align Sign In at the bottom */
+  font-family: 'Inter', sans-serif;
 
   /* Section Titles */
   .section-title {
     font-size: 18px;
     font-weight: 700;
-    font-family: 'Merriweather', serif; /* Updated font */
+    font-family: 'Source Sans Pro', sans-serif;
     color: var(--color-primary);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    padding-left: 10px;
-    border-left: 4px solid var(--color-primary);
+    margin-bottom: 10px;
+    padding-left: 20px;
   }
 
   /* Navigation List */
@@ -46,7 +47,7 @@ const menuContentStyles = css`
     padding: 0;
 
     li {
-      margin-bottom: 12px;
+      margin: 0;
 
       a {
         text-decoration: none;
@@ -54,22 +55,22 @@ const menuContentStyles = css`
         font-weight: 400;
         color: var(--color-text);
         display: block;
-        padding: 12px 20px; /* Increased padding for taller links */
-        transition: color 0.2s ease, background-color 0.2s ease, border-left 0.2s ease;
-        border-left: 4px solid transparent; /* Left border for hover effect */
+        padding: 14px 20px; /* Taller padding for accessibility */
+        border-left: 4px solid transparent; /* Default border */
+        transition: color 0.3s ease, border-left 0.3s ease, background-color 0.3s ease;
 
         &:hover {
           color: var(--color-link);
-          background-color: var(--color-alt-bg);
           border-left: 4px solid var(--color-primary);
+          background-color: var(--color-alt-bg);
         }
       }
 
       &.active a {
         font-weight: 600;
         color: var(--color-primary);
-        background-color: var(--color-alt-bg);
         border-left: 4px solid var(--color-primary);
+        background-color: var(--color-alt-bg);
       }
     }
   }
@@ -82,40 +83,28 @@ const menuContentStyles = css`
     opacity: 0.6;
   }
 
-  /* Secondary Links */
-  .secondary-links {
-    display: flex;
-    flex-direction: column;
+  /* Bottom Buttons */
+.bottom-links {
+  display: flex;
+  justify-content: space-between; /* Space links evenly */ 
+  align-items: center;
+  padding: 16px 20px; /* Padding for spacing */ 
+  border-top: 1px solid var(--color-border); /* Optional separator */ 
+  padding: 20px 50px;
+  margin-top: auto; /* Pushes this section to the bottom */ 
 
-    .muted-link {
-      font-size: 14px;
-      color: var(--color-muted);
-      text-decoration: none;
-      padding: 8px 20px;
-      transition: color 0.2s ease;
+  a {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
 
-      &:hover {
-        color: var(--color-link);
-      }
+    &:hover {
+      color: var(--color-link);
     }
-
-    /* Sign In Link Styling */
-    .sign-in {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--color-primary);
-      text-decoration: none;
-      padding: 14px 20px;
-      text-align: center;
-      background-color: var(--color-component-bg);
-      border-top: 1px solid var(--color-border);
-      transition: background-color 0.2s ease, color 0.2s ease;
-
-      &:hover {
-        background-color: var(--color-alt-bg);
-        color: var(--color-link);
-      }
-    }
+  }
+}
   }
 `;
 
@@ -127,18 +116,10 @@ const DesktopSideMenu: React.FC<DesktopSideMenuProps> = ({ isMenuOpen }) => {
         <div>
           <h3 className="section-title">Navigation</h3>
           <ul>
-            <li>
-              <a href="/work" aria-label="Work">Work</a>
-            </li>
-            <li>
-              <a href="/studio" aria-label="Studio">Studio</a>
-            </li>
-            <li>
-              <a href="/insights" aria-label="Insights">Insights</a>
-            </li>
-            <li>
-              <a href="/connect" aria-label="Connect">Connect</a>
-            </li>
+            <li><a href="/work">Work</a></li>
+            <li><a href="/studio">Studio</a></li>
+            <li><a href="/insights">Insights</a></li>
+            <li><a href="/connect">Connect</a></li>
           </ul>
         </div>
 
@@ -148,27 +129,19 @@ const DesktopSideMenu: React.FC<DesktopSideMenuProps> = ({ isMenuOpen }) => {
         <div>
           <h3 className="section-title">Explore</h3>
           <ul>
-            <li>
-              <a href="/gallery" aria-label="Gallery">Gallery</a>
-            </li>
-            <li>
-              <a href="/task-tracker" aria-label="Task Tracker">Task Tracker</a>
-            </li>
-            <li>
-              <a href="/code-lab" aria-label="Code Lab">Code Lab</a>
-            </li>
-            <li>
-              <a href="/changelog" aria-label="Changelog">Changelog</a>
-            </li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/task-tracker">Task Tracker</a></li>
+            <li><a href="/code-lab">Code Lab</a></li>
+            <li><a href="/changelog">Changelog</a></li>
           </ul>
         </div>
 
         <div className="divider" />
 
-        {/* Secondary Links */}
-        <div className="secondary-links">
-          <a href="/privacy" className="muted-link">Privacy Policy</a>
-          <a href="/sign-in" className="sign-in">Sign In</a>
+        {/* Bottom Section with Sign In and Sign Up */}
+        <div className="bottom-links">
+          <a href="/sign-in">Sign In</a>
+          <a href="/sign-up">Sign Up</a>
         </div>
       </div>
     </div>
