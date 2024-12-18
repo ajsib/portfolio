@@ -60,7 +60,7 @@ const menuContentStyles = css`
         transition: color 0.3s ease, border-left 0.3s ease, background-color 0.3s ease;
 
         &:hover {
-          color: var(--color-link);
+          color: var(--color-primary);
           border-left: 4px solid var(--color-primary);
           background-color: var(--color-alt-bg);
         }
@@ -94,14 +94,15 @@ const menuContentStyles = css`
   margin-top: auto; /* Pushes this section to the bottom */ 
 
   a {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--color-muted);
     text-decoration: none;
     transition: color 0.2s ease;
 
     &:hover {
-      color: var(--color-link);
+      color: var(--color-primary);
+      text-decoration: underline;
     }
   }
 }
