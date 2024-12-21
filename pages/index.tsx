@@ -23,10 +23,6 @@ const containerStyle = (isMenuOpen: boolean, isMobile: boolean) => css`
   z-index: 2;
 `;
 
-const footerConStyle = (isMenuOpen: boolean, isMobile: boolean) => css`
-  padding-left: ${isMenuOpen && !isMobile ? `${DESKTOP_MENU_WIDTH / 2}px` : '0'};
-`;
-
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);

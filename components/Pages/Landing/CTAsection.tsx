@@ -100,7 +100,7 @@ const CallToAction = () => {
     <section css={ctaSectionStyles}>
       <h2>Let&apos;s Create Your Vision Together</h2>
       <p>
-        Ready to take the next step? Whether you need a strategic partner, a solution architect, or a team leader, I’m here to help bring your ideas to life. Let's build something extraordinary.
+        Ready to take the next step? Whether you need a strategic partner, a solution architect, or a team leader, I&apos;m here to help bring your ideas to life. Le&apos;s build something extraordinary.
       </p>
       <a
         href="mailto:contact@ajsibley.com?subject=Let's%20Collaborate!"
