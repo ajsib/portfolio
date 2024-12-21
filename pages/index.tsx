@@ -9,16 +9,22 @@ import AboutMe from '@/components/Pages/Landing/AboutMe';
 import Timeline from '@/components/Pages/Landing/Timeline';
 import Services from '@/components/Pages/Landing/ServicesSection';
 import CallToAction from '@/components/Pages/Landing/CTAsection';
+import Footer from '@/components/Shared/Footer';
 import DesktopSideMenu from '@/components/Shared/Header/DesktopSideMenu';
 import MobileSideMenu from '@/components/Shared/Header/MobileSideMenu';
-import { MOBILE_MENU_HEIGHT, HEADER_HEIGHT } from '@/components/Shared/Header/styles';
+import { MOBILE_MENU_HEIGHT, HEADER_HEIGHT, DESKTOP_MENU_WIDTH } from '@/components/Shared/Header/styles';
 
 const containerStyle = (isMenuOpen: boolean, isMobile: boolean) => css`
   background-color: var(--color-background);
   transition: padding-left 0.2s ease-out, padding-top 0.2s ease-out;
-  padding-left: ${isMenuOpen && !isMobile ? '300px' : '0'};
-  padding-top: ${isMenuOpen && isMobile ? `${(MOBILE_MENU_HEIGHT - HEADER_HEIGHT) / 2}px` : '0'};
+  padding-left: ${isMenuOpen && !isMobile ? `${DESKTOP_MENU_WIDTH / 2}px` : '0'};
+  padding-top: ${isMenuOpen && isMobile ? `${(MOBILE_MENU_HEIGHT - HEADER_HEIGHT) / 3}px` : '0'};
+  padding-bottom: 4rem;
   z-index: 2;
+`;
+
+const footerConStyle = (isMenuOpen: boolean, isMobile: boolean) => css`
+  padding-left: ${isMenuOpen && !isMobile ? `${DESKTOP_MENU_WIDTH / 2}px` : '0'};
 `;
 
 const Home = () => {
@@ -64,6 +70,9 @@ const Home = () => {
           <CallToAction />
         </PaperContent>
       </div>
+
+      {/* Footer */}
+      <Footer isMenuOpen={isMenuOpen} isMobile={isMobile} />
     </div>
   );
 };
