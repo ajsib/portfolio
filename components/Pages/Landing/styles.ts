@@ -12,10 +12,10 @@ const highlightedTextFontSize = '18px';
 export const heroSectionStyles = css`
   display: flex;
   flex-direction: row;
-  align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
+  align-items: center;
+  justify-content: center;
   padding: 80px 20px;
-  background-color: var(--color-component-bg);
+  background-color: var(--bg-component);
   text-align: left;
 
   @media (max-width: 768px) {
@@ -26,44 +26,43 @@ export const heroSectionStyles = css`
   .image-container {
     flex: 1;
     display: flex;
-    justify-content: center; /* Center image horizontally */
-    align-items: center; /* Align image vertically */
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
 
     img {
-      border-radius: 50%; /* Circular image */
+      border-radius: var(--radius-default);
     }
 
     @media (max-width: 768px) {
-      justify-content: center; /* Ensure image stays centered on smaller screens */
+      justify-content: center;
     }
   }
 
   .text-container {
     flex: 1;
-    max-width: 680px; /* Optional: Limit text width for readability */
+    max-width: 680px;
     padding-left: 40px;
 
     @media (max-width: 768px) {
       padding-left: 0;
-      text-align: center; /* Center-align text for mobile */
+      text-align: center;
     }
 
     h1 {
-      font-size: ${headlineFontSize};
+      font-size: 36px;
       font-weight: 700;
       margin-bottom: 16px;
       color: var(--color-primary);
-      // font-family: 'Inter', sans-serif;
       font-family: 'Merriweather', serif;
 
       @media (max-width: 768px) {
-        font-size: 30px; /* Slightly smaller headline for mobile */
+        font-size: 30px;
       }
     }
 
     h2 {
-      font-size: ${subHeadlineFontSize};
+      font-size: 24px;
       font-weight: 400;
       margin-bottom: 24px;
       color: var(--color-secondary);
@@ -75,10 +74,9 @@ export const heroSectionStyles = css`
     }
 
     p {
-      font-size: ${paragraphFontSize};
-      text-align: left;
-      line-height: 1.5;
-      color: var(--color-text);
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-T2);
       font-family: 'Source Sans Pro', sans-serif;
 
       @media (max-width: 768px) {
@@ -88,12 +86,13 @@ export const heroSectionStyles = css`
   }
 `;
 
+
 export const aboutMeSectionStyles = css`
   padding: 60px 20px;
-  background-color: var(--color-component-bg);
+  background-color: var(--bg-component);
 
   .title {
-    font-size: ${mainTitleFontSize};
+    font-size: 32px;
     font-family: 'Merriweather', serif;
     font-weight: 700;
     color: var(--color-primary);
@@ -101,13 +100,13 @@ export const aboutMeSectionStyles = css`
     text-align: left;
 
     @media (max-width: 768px) {
-      text-align: center; /* Center-align title for smaller screens */
-      font-size: 28px; /* Slightly smaller font size */
+      text-align: center;
+      font-size: 28px;
     }
   }
 
   .quote {
-    font-size: ${quoteFontSize};
+    font-size: 20px;
     font-family: 'Inter', sans-serif;
     font-style: italic;
     font-weight: 400;
@@ -116,27 +115,27 @@ export const aboutMeSectionStyles = css`
     margin: 40px 0;
 
     @media (max-width: 768px) {
-      font-size: 20px;
+      font-size: 18px;
       margin: 30px 0;
     }
   }
 
   .paragraph {
-    font-size: ${paragraphFontSize};
+    font-size: 16px;
     font-family: 'Source Sans Pro', sans-serif;
-    color: var(--color-text);
+    color: var(--text-T2);
     line-height: 1.6;
     margin-bottom: 20px;
     text-align: justify;
 
     @media (max-width: 768px) {
       font-size: 14px;
-      text-align: left; /* Adjust alignment for smaller screens */
+      text-align: left;
     }
   }
 
   .section-title {
-    font-size: ${subTitleFontSize};
+    font-size: 24px;
     font-family: 'Merriweather', serif;
     font-weight: 700;
     color: var(--color-primary);
@@ -150,34 +149,33 @@ export const aboutMeSectionStyles = css`
     }
   }
 
-.highlight-box {
-  display: flex; /* Enables flexbox for vertical centering */
-  align-items: center; /* Vertically centers content */
-  justify-content: center; /* Horizontally centers content (optional, for complete centering) */
-  background-color: var(--color-background);
-  padding: 20px;
-  border-left: 4px solid var(--color-primary);
-  margin-bottom: 30px;
+  .highlight-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-B2);
+    padding: 20px;
+    border-left: 4px solid var(--color-primary);
+    margin-bottom: 30px;
 
-  @media (max-width: 768px) {
-    padding: 15px;
-    margin-bottom: 20px;
+    @media (max-width: 768px) {
+      padding: 15px;
+      margin-bottom: 20px;
+    }
   }
-}
 
-.highlighted-text {
-  font-size: ${highlightedTextFontSize};
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  color: var(--color-primary);
-  text-align: left; /* Center-align text */
-  margin: 0; /* Reset margin for better alignment */
+  .highlighted-text {
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-align: left;
+    margin: 0;
 
-  @media (max-width: 768px) {
-    font-size: 16px;
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
-}
-
 
   .asymmetric-layout {
     display: flex;
@@ -185,7 +183,7 @@ export const aboutMeSectionStyles = css`
     justify-content: space-between;
 
     @media (max-width: 768px) {
-      flex-direction: column; /* Stack text blocks vertically */
+      flex-direction: column;
     }
   }
 
@@ -198,11 +196,12 @@ export const aboutMeSectionStyles = css`
     }
 
     @media (max-width: 768px) {
-      flex: 1 1 100%; /* Full width for smaller screens */
-      margin-right: 0; /* Remove side margins */
+      flex: 1 1 100%;
+      margin-right: 0;
     }
   }
 `;
+
 
 export const timelineContainerStyles = css`
   position: relative;
@@ -233,7 +232,7 @@ export const timelineContainerStyles = css`
 
 export const servicesSectionStyles = css`
   padding: 80px 20px;
-  background-color: var(--color-component-bg);
+  background-color: var(--bg-component);
   text-align: center;
 
   h2 {
@@ -247,7 +246,7 @@ export const servicesSectionStyles = css`
   p {
     font-size: 18px;
     font-family: 'Inter', sans-serif;
-    color: var(--color-text);
+    color: var(--text-T2);
     margin-bottom: 60px;
     line-height: 1.6;
   }
@@ -262,18 +261,18 @@ export const servicesSectionStyles = css`
       flex: 0 1 calc(33.333% - 20px);
       max-width: 300px;
       padding: 20px;
-      border: 1px solid var(--color-border);
+      border: 1px solid var(--border-color);
       text-align: left;
       position: relative;
       transition: box-shadow 0.3s ease, max-height 0.3s ease;
       min-height: 300px;
-      max-height: 1000px;
       overflow: hidden;
       cursor: pointer;
+      background-color: var(--bg-component);
 
-    //   &:hover {
-    //     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    //   }
+      &:hover {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+      }
 
       .icon {
         font-size: 36px;
@@ -291,7 +290,7 @@ export const servicesSectionStyles = css`
       p {
         font-size: 16px;
         line-height: 1.6;
-        color: var(--color-secondary);
+        color: var(--text-T3);
         margin-bottom: 40px;
       }
 
@@ -334,21 +333,20 @@ export const servicesSectionStyles = css`
         opacity: 0;
 
         &.visible {
-          max-height: 400px; /* Adjust as needed */
+          max-height: 400px;
           opacity: 1;
         }
 
         .divider {
           margin: 15px 0;
-          border-top: 1px solid var(--color-border);
+          border-top: 1px solid var(--border-color);
           opacity: 0.5;
         }
 
         p {
           margin-top: 15px;
           font-size: 14px;
-          font-family: 'Inter', sans-serif;
-          color: var(--color-secondary);
+          color: var(--text-T4);
           line-height: 1.5;
         }
       }
@@ -367,4 +365,3 @@ export const servicesSectionStyles = css`
     }
   }
 `;
-

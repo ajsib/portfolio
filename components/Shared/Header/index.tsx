@@ -34,8 +34,8 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
     align-items: center;
     height: 60px;
     padding: ${paddingVertical}px ${paddingHorizontal}px;
-    background-color: var(--color-component-bg);
-    border-bottom: 1px solid var(--color-border);
+    background-color: var(--bg-component);
+    border-bottom: 1px solid var(--border-color);
     user-select: none;
     position: fixed;
     top: 0;
@@ -57,8 +57,10 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
 
   const logoContainerStyles = css`
     display: flex;
+    font-family: Source Sans Pro;
     align-items: center;
     padding-left: 4px;
+    font-weight:600;
 
     svg {
       height: 35px;
@@ -104,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
       margin-left: ${paddingHorizontal}px;
       font-size: ${fontSizeBase}px;
       font-weight: 600;
-      color: var(--color-secondary);
+      color: var(--text-T2);
       transition: color 0.2s ease-in-out;
 
       &:hover,
@@ -121,7 +123,7 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
         <div css={leftContainerStyles}>
           {!isMobile && (
             <div css={hamburgerStyles} onClick={toggleMenu}>
-              <Hamburger isOpen={isMenuOpen} size="28px" />
+              <Hamburger isOpen={isMenuOpen} size="28px" color='var(--text-T1)' />
             </div>
           )}
           <div css={logoContainerStyles}>
@@ -130,7 +132,7 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
           </div>
           {isMobile && (
             <div css={hamburgerStyles} onClick={toggleMenu}>
-              <Hamburger isOpen={isMenuOpen} size="28px" />
+              <Hamburger isOpen={isMenuOpen} size="28px" color='var(--text-T1)' />
             </div>
           )}
         </div>

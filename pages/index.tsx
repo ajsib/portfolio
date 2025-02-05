@@ -15,7 +15,8 @@ import MobileSideMenu from '@/components/Shared/Header/MobileSideMenu';
 import { MOBILE_MENU_HEIGHT, HEADER_HEIGHT, DESKTOP_MENU_WIDTH } from '@/components/Shared/Header/styles';
 
 const containerStyle = (isMenuOpen: boolean, isMobile: boolean) => css`
-  background-color: var(--color-background);
+  background-color: var(--bg-B1); /* Light/Dark mode adaptable background */
+  overflow-y: hidden;
   transition: padding-left 0.2s ease-out, padding-top 0.2s ease-out;
   padding-left: ${isMenuOpen && !isMobile ? `${DESKTOP_MENU_WIDTH / 2}px` : '0'};
   padding-top: ${isMenuOpen && isMobile ? `${(MOBILE_MENU_HEIGHT - HEADER_HEIGHT) / 3}px` : '0'};
@@ -27,7 +28,6 @@ const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Responsive detection for mobile devices
   useEffect(() => {
     const handleResize = () => {
       if (typeof window !== 'undefined') {

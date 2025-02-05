@@ -6,13 +6,13 @@ import { DESKTOP_MENU_WIDTH } from '@/components/Shared/Header/styles';
 
 const footerStyles = (isMenuOpen: boolean, isMobile: boolean) => css`
   position: relative;
-//   background-color: var(--color-component-bg);
-  color: var(--color-text);
-  padding: 60px 20px;
+  color: var(--text-T2);
+  padding: 100px 20px;
+  // overflow: hidden;
   margin-top: 4rem;
   margin-left: 120px;
   margin-right: 120px;
-  padding-left: ${isMenuOpen && !isMobile ? `${(DESKTOP_MENU_WIDTH) / 2}px` : '0px'};
+  padding-left: ${isMenuOpen && !isMobile ? `${DESKTOP_MENU_WIDTH / 2}px` : '0px'};
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -49,11 +49,11 @@ const footerStyles = (isMenuOpen: boolean, isMobile: boolean) => css`
           text-decoration: none;
           font-size: 16px;
           font-family: 'Inter', sans-serif;
-          color: var(--color-text);
+          color: var(--text-T3);
           transition: color 0.3s ease;
 
           &:hover {
-            color: var(--color-link);
+            color: var(--link-hover-color);
           }
         }
       }
@@ -66,11 +66,11 @@ const footerStyles = (isMenuOpen: boolean, isMobile: boolean) => css`
 
     a {
       font-size: 18px;
-      color: var(--color-text);
+      color: var(--text-T3);
       transition: color 0.3s ease;
 
       &:hover {
-        color: var(--color-link);
+        color: var(--link-hover-color);
       }
     }
   }
@@ -79,7 +79,7 @@ const footerStyles = (isMenuOpen: boolean, isMobile: boolean) => css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--border-color);
     padding-top: 20px;
 
     @media (max-width: 768px) {
@@ -89,28 +89,28 @@ const footerStyles = (isMenuOpen: boolean, isMobile: boolean) => css`
 
     .copyright {
       font-size: 14px;
-      color: var(--color-muted);
+      color: var(--text-T5);
     }
   }
 
   .watermark-container {
     position: absolute;
-    top: -100px; /* Slightly overflowing above the footer */
-    right: -100px; /* Slightly overflowing to the right */
-    width: 450px; /* Larger size for impactful appearance */
+    top: -100px;
+    right: -100px;
+    width: 450px;
     height: 450px;
-    pointer-events: none; /* Ensures it doesn't interfere with clicks */
+    pointer-events: none;
     z-index: 0;
     opacity: 0.1;
 
     svg {
       width: 100%;
       height: 100%;
-      fill: var(--color-alt-bg);
+      fill: var(--bg-component-alt);
     }
 
     @media (max-width: 768px) {
-      display: none; /* Hide watermark on small screens */
+      display: none;
     }
   }
 `;
@@ -120,7 +120,7 @@ const Footer = ({ isMenuOpen, isMobile }: { isMenuOpen: boolean; isMobile: boole
     <footer css={footerStyles(isMenuOpen, isMobile)}>
       {/* Watermark Logo */}
       <div className="watermark-container">
-        <Logo />
+        <Logo color='var(--text-T6)' />
       </div>
 
       {/* Main Footer Content */}

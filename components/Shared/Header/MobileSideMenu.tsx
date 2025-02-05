@@ -13,26 +13,25 @@ const mobileSideMenuStyles = (isMenuOpen: boolean) => css`
   left: 0;
   width: 100%;
   height: ${MOBILE_MENU_HEIGHT}px;
-  background-color: var(--color-component-bg);
+  background-color: var(--bg-component);
   z-index: 999;
   transform: translateY(${isMenuOpen ? '0' : `-${MOBILE_MENU_HEIGHT}px`});
   transition: transform 0.2s ease-out;
   padding-top: ${HEADER_HEIGHT}px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--border-color);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-
   display: flex;
   flex-direction: column;
 `;
 
 const topNavStyles = css`
-  background-color: var(--color-background);
+  background-color: var(--bg-B2);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--color-border);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
 
   a {
     text-decoration: none;
@@ -43,14 +42,18 @@ const topNavStyles = css`
     transition: color 0.2s ease;
 
     &:hover {
-      color: var(--color-link);
+      color: var(--link-hover-color);
+    }
+
+    &:visited {
+      color: var(--link-visited-color);
     }
   }
 `;
 
 const secondaryNavStyles = css`
   flex: 1;
-  background-color: var(--color-alt-bg);
+  background-color: var(--bg-component-alt);
   overflow-y: auto;
   padding: 10px 0;
 
@@ -66,13 +69,17 @@ const secondaryNavStyles = css`
     a {
       text-decoration: none;
       font-size: 14px;
-      color: var(--color-text);
+      color: var(--text-T3);
       font-family: 'Inter', sans-serif;
       transition: color 0.2s ease;
 
       &:hover {
-        color: var(--color-link);
+        color: var(--link-hover-color);
         text-decoration: underline;
+      }
+
+      &:visited {
+        color: var(--link-visited-color);
       }
     }
   }
@@ -81,9 +88,9 @@ const secondaryNavStyles = css`
     margin: 12px 20px 8px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--color-muted);
+    color: var(--text-T5);
     text-transform: uppercase;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 4px;
   }
 `;

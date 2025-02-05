@@ -10,11 +10,18 @@
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
+    "@mdx-js/react": "^3.1.0",
     "next": "14.2.13",
+    "next-mdx-remote": "^5.0.0",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.3.0",
-    "react-masonry-css": "^1.0.16"
+    "react-masonry-css": "^1.0.16",
+    "rehype-highlight": "^7.0.2",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-html": "^16.0.1",
+    "serialize": "link:@/next-mdx-remote/serialize"
   },
   "devDependencies": {
     "@types/node": "^20",

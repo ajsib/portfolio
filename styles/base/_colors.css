@@ -2,32 +2,89 @@
 
 /* Light Mode Color Palette */
 :root {
+  /* **Primary Colors** */
   --color-primary: #0078d4; /* Azure Blue */
-  --color-secondary: #4a4a4a; /* Neutral Darker Gray */
-  --color-accent: #a0a0a0; /* Neutral Gray Accent */
-  --color-background: #f3f2f1; /* Light Background */
-  --color-component-bg: #ffffff; /* White Component Background */
-  --color-alt-bg: #f9f9f9; /* Slightly Off-White for Subtle Hierarchy */
-  --color-text: #323130; /* Main Text Color */
-  --color-muted: #7a7a7a; /* Muted Text Color */
-  --color-border: #c8c8c8; /* Light Gray Border Color */
-  --color-link: #0645ad; /* Wikipedia Blue Link */
-  --color-visited-link: #0b0080; /* Wikipedia Visited Link (Purple) */
+  --color-secondary: #495057; /* Deep Slate Gray as Complementary */
+  --color-accent: #4dabf7; /* Light Azure Accent */
+
+  /* **Background Colors (Hierarchy Levels B1 to B6)** */
+  --bg-B1: #f3f2f1; /* Lightest Background */
+  --bg-B2: #eaeaea; /* Slight Gray */
+  --bg-B3: #dcdcdc; /* Deeper Gray */
+  --bg-B4: #c8c8c8; /* Medium Gray */
+  --bg-B5: #b0b0b0; /* Darker Gray */
+  --bg-B6: #8a8a8a; /* Deep Gray Background */
+
+  /* **Component Backgrounds** */
+  --bg-component: #ffffff; /* Pure White for Light Mode Components */
+  --bg-component-alt: #f9f9f9; /* Slightly Off-White Background */
+
+  /* **Text Colors (Hierarchy Levels T1 to T6)** */
+  --text-T1: #0f0f0f; /* Absolute Black Text */
+  --text-T2: #323130; /* Standard Main Text */
+  --text-T3: #4a4a4a; /* Secondary Heading Text */
+  --text-T4: #6e6e6e; /* Tertiary Supporting Text */
+  --text-T5: #7a7a7a; /* Muted Supporting Text */
+  --text-T6: #a0a0a0; /* Subtle Text */
+
+  /* **Link Colors** */
+  --link-color: #0050c8; /* Deep Blue Link */
+  --link-hover-color: #0041a3; /* Darker Hover Blue */
+  --link-visited-color: #4b0082; /* Indigo for Visited Links */
+
+  /* **Borders** */
+  --border-color: #d1d1d1; /* Standard Light Mode Border */
+
+  /* **Hover Effects** */
+  --hover-card-bg: #e8f4fd; /* Subtle Light Blue Hover Effect */
+  --hover-component-bg: #eef6fb; /* Very Subtle Hover Component */
+  
+  /* **UI Styling** */
+  --radius-default: 8px; /* Standard Border Radius */
 }
+
 
 /* Dark Mode Color Palette */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #61dafb; /* Lighter Blue */
-    --color-secondary: #e1e1e1; /* Light Gray Text */
-    --color-accent: #8a8a8a; /* Neutral Gray Accent */
-    --color-background: #0d0d0d; /* Vanta Black Background */
-    --color-component-bg: #1a1a1a; /* Off-Black Component Background */
-    --color-alt-bg: #292929; /* Slightly Darker Gray for Subtle Hierarchy */
-    --color-text: #f3f2f1; /* Light Text Color */
-    --color-muted: #a1a1a1; /* Muted Light Gray Color */
-    --color-border: #3e3e3e; /* Dark Border Color */
-    --color-link: #9bb8ff; /* Wikipedia-like Blue Link */
-    --color-visited-link: #9370db; /* Wikipedia-like Visited Link (Purple) */
+    /* **Primary Colors** */
+    --color-primary: #61dafb; /* Lighter Azure Blue */
+    --color-secondary: #bbbec1; /* Light Gray Complement */
+    --color-accent: #73d0f4; /* Bright Accent */
+
+    /* **Background Colors (Hierarchy Levels B1 to B6)** */
+    --bg-B1: #0d0d0d; /* Deep Dark Background */
+    --bg-B2: #121212; /* Slightly Lighter */
+    --bg-B3: #1a1a1a; /* Component Level Background */
+    --bg-B4: #292929; /* Medium Gray Background */
+    --bg-B5: #383838; /* Even Lighter Gray */
+    --bg-B6: #444444; /* Subtle Dark Gray */
+
+    /* **Component Backgrounds** */
+    --bg-component: #1a1a1a; /* Off-Black Component Background */
+    --bg-component-alt: #212121; /* Slightly Darker Gray */
+
+    /* **Text Colors (Hierarchy Levels T1 to T6)** */
+    --text-T1: #f9f9f9; /* Bright White */
+    --text-T2: #e1e1e1; /* Standard Light Mode Text */
+    --text-T3: #c7c7c7; /* Headings */
+    --text-T4: #a0a0a0; /* Secondary Supporting Text */
+    --text-T5: #8a8a8a; /* Muted Supporting Text */
+    --text-T6: #666666; /* Subtle Text */
+
+    /* **Link Colors** */
+    --link-color: #9bb8ff; /* Bright Link Blue */
+    --link-hover-color: #7ea6f0; /* Slightly Darker Hover */
+    --link-visited-color: #9370db; /* Indigo */
+
+    /* **Borders** */
+    --border-color: #3e3e3e; /* Dark Mode Border */
+
+    /* **Hover Effects** */
+    --hover-card-bg: #1e2934; /* Subtle Dark Mode Hover Effect */
+    --hover-component-bg: #2b3b4a; /* Slight Dark Hover */
+    
+    /* **UI Styling** */
+    --radius-default: 8px; /* Consistent Border Radius */
   }
 }

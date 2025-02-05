@@ -2,16 +2,16 @@
 import { useState, ReactNode } from 'react';
 import { FaCogs, FaLightbulb, FaRocket } from 'react-icons/fa';
 import RightWedgeBold from '@/components/UI/icons/RightWedgeBold';
-import { servicesSectionStyles } from "./styles"
+import { servicesSectionStyles } from './styles';
 
 interface ServiceCardProps {
-    icon: ReactNode;
-    title: string;
-    summary: string;
-    details: string;
-    isExpanded: boolean;
-    onToggle: () => void;
-  }
+  icon: ReactNode;
+  title: string;
+  summary: string;
+  details: string;
+  isExpanded: boolean;
+  onToggle: () => void;
+}
 
 const ServiceCard = ({ icon, title, summary, details, isExpanded, onToggle }: ServiceCardProps) => (
   <div
@@ -24,9 +24,7 @@ const ServiceCard = ({ icon, title, summary, details, isExpanded, onToggle }: Se
     <div className="icon">{icon}</div>
     <h3>{title}</h3>
     <p>{summary}</p>
-    <div
-      className={`expand-toggle ${isExpanded ? 'expanded' : ''}`}
-    >
+    <div className={`expand-toggle ${isExpanded ? 'expanded' : ''}`}>
       <span>{isExpanded ? 'Read Less' : 'Read More'}</span>
       <RightWedgeBold size={14} />
     </div>

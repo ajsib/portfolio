@@ -12,8 +12,8 @@ const desktopSideMenuStyles = (isMenuOpen: boolean) => css`
   left: 0;
   height: 100vh;
   width: 300px;
-  background-color: var(--color-component-bg);
-  border-right: 1px solid var(--color-border);
+  background-color: var(--bg-component);
+  border-right: 1px solid var(--border-color);
   z-index: 1;
   transform: translateX(${isMenuOpen ? '0' : '-100%'});
   transition: transform 0.2s ease-out;
@@ -53,16 +53,16 @@ const menuContentStyles = css`
         text-decoration: none;
         font-size: 16px;
         font-weight: 400;
-        color: var(--color-text);
+        color: var(--text-T2);
         display: block;
-        padding: 14px 20px; /* Taller padding for accessibility */
-        border-left: 4px solid transparent; /* Default border */
+        padding: 14px 20px;
+        border-left: 4px solid transparent;
         transition: color 0.3s ease, border-left 0.3s ease, background-color 0.3s ease;
 
         &:hover {
           color: var(--color-primary);
           border-left: 4px solid var(--color-primary);
-          background-color: var(--color-alt-bg);
+          background-color: var(--hover-component-bg);
         }
       }
 
@@ -70,7 +70,7 @@ const menuContentStyles = css`
         font-weight: 600;
         color: var(--color-primary);
         border-left: 4px solid var(--color-primary);
-        background-color: var(--color-alt-bg);
+        background-color: var(--hover-component-bg);
       }
     }
   }
@@ -78,34 +78,32 @@ const menuContentStyles = css`
   /* Dividers */
   .divider {
     height: 1px;
-    background-color: var(--color-border);
+    background-color: var(--border-color);
     margin: 16px 0;
     opacity: 0.6;
   }
 
-  /* Bottom Buttons */
-.bottom-links {
-  display: flex;
-  justify-content: space-between; /* Space links evenly */ 
-  align-items: center;
-  padding: 16px 20px; /* Padding for spacing */ 
-  border-top: 1px solid var(--color-border); /* Optional separator */ 
-  padding: 20px 50px;
-  margin-top: auto; /* Pushes this section to the bottom */ 
+  /* Bottom Links Section */
+  .bottom-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
 
-  a {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-muted);
-    text-decoration: none;
-    transition: color 0.2s ease;
+    a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-T4);
+      text-decoration: none;
+      transition: color 0.2s ease;
 
-    &:hover {
-      color: var(--color-primary);
-      text-decoration: underline;
+      &:hover {
+        color: var(--color-primary);
+        text-decoration: underline;
+      }
     }
-  }
-}
   }
 `;
 
@@ -139,7 +137,7 @@ const DesktopSideMenu: React.FC<DesktopSideMenuProps> = ({ isMenuOpen }) => {
 
         <div className="divider" />
 
-        {/* Bottom Section with Sign In and Sign Up */}
+        {/* Bottom Links */}
         <div className="bottom-links">
           <a href="/sign-in">Sign In</a>
           <a href="/sign-up">Sign Up</a>

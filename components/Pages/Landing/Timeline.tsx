@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import TimelineItem from './TimelineItem';
 import timelineData from './dummy_timeline.json';
 import Masonry from 'react-masonry-css';
-import { timelineContainerStyles } from './styles';
 
 const sectionTitleStyles = css`
   font-size: 32px;
@@ -11,35 +10,31 @@ const sectionTitleStyles = css`
   font-weight: 700;
   color: var(--color-primary);
   text-align: center;
-  margin-bottom: 60px;
-  margin-top: 60px;
+  margin: 60px 0;
 `;
 
 const masonryStyles = css`
   display: flex;
   width: 100%;
   max-width: 1200px;
-  gap: 40px; /* Gap between columns for desktop */
+  gap: 40px;
 
   .timeline-column {
     background-clip: padding-box;
   }
 
-  /* Give items breathing room */
   .timeline-column > div {
     position: relative;
     margin-bottom: 80px;
   }
 
-  /* Left column adjustments */
   .timeline-column:first-of-type {
     padding-right: 30px;
   }
 
-  /* Right column offset for a staggered and visually distinct layout */
   .timeline-column:last-of-type {
     padding-left: 30px;
-    margin-top: 140px; /* Adjust to push the right column further down */
+    margin-top: 140px;
   }
 
   @media (max-width: 700px) {
@@ -48,17 +43,42 @@ const masonryStyles = css`
     gap: 0;
 
     .timeline-column {
-      padding: 0 !important;
-      margin-top: 0 !important;
+      padding: 0;
+      margin-top: 0;
     }
 
     .timeline-column > div {
       margin-bottom: 40px;
-      padding-left: 40px; /* Keep content aligned with the vertical line */
+      padding-left: 40px;
     }
 
     &::before {
       left: 20px;
+    }
+  }
+`;
+
+const timelineContainerStyles = css`
+  position: relative;
+  padding: 0 20px 60px;
+  background-color: var(--bg-component);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background-color: var(--border-color);
+
+    @media (max-width: 700px) {
+      left: 30px;
+      transform: none;
     }
   }
 `;
