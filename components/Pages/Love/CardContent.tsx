@@ -82,9 +82,7 @@ const CardContent: React.FC<CardContentProps> = ({
   useEffect(() => {
     if (!imagesLoaded || imageLayout.length === 0) return;
     
-    const containerWidth = document.querySelector('.pinterest-gallery')?.clientWidth || 600;
     const targetRowHeight = 250; // Base row height
-    const gapSize = 10; // Gap between images
     
     // Clone the array to avoid modifying state directly
     const layoutCalculation = [...imageLayout];
