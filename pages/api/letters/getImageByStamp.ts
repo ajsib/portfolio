@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import path from 'path';
 
-const baseDir = path.join(process.cwd(), 'letters');
+const baseDir = path.join('/tmp', 'letters');
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { datestamp, file } = req.query;
