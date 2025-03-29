@@ -1,17 +1,47 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import CardContent from '@/components/Pages/Love/CardContent';
 import CreateLetter from '@/components/Pages/Love/CreateLetter';
 import { loveTheme } from '@/components/Pages/Love/theme';
 import Head from 'next/head';
+import LoadingState from '@/components/Pages/Love/LoadingState';
 
 interface LetterMeta {
   datestamp: string;
   title: string;
   author: string;
 }
+
+// Animation keyframes
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeInScale = keyframes`
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
+const staggeredFadeIn = (index: number) => css`
+  opacity: 0;
+  animation: ${fadeIn} 0.4s ease-out forwards;
+  animation-delay: ${0.1 + index * 0.05}s;
+`;
 
 const containerStyle = css`
   min-height: 100vh;
@@ -47,9 +77,10 @@ const headingStyle = css`
   text-align: center;
   margin-bottom: 4rem;
   margin-top: 3.5rem;
+  animation: ${fadeIn} 0.6s ease-out;
 
   @media (max-width: 480px) {
-    margin-top: 6.5rem; /* ✅ increases top margin on small screens */
+    margin-top: 6.5rem;
   }
 `;
 
@@ -66,11 +97,18 @@ const buttonStyle = css`
   margin-bottom: 2rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   appearance: none;
+  animation: ${fadeInScale} 0.5s ease-out;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-  &:hover, &:focus, &:active {
+  &:hover, &:focus {
     background: ${loveTheme.colors.primary} !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
-    transform: none !important;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-2px) !important;
+  }
+  
+  &:active {
+    transform: translateY(1px) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
   }
 `;
 
@@ -103,6 +141,14 @@ const cardStyle = css`
     #f9ecec 19px,
     #f7dcdc 20px
   );
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 0 0 1px #ffffff,
+      0 8px 16px rgba(0, 0, 0, 0.08);
+  }
 
   &::before {
     content: '';
@@ -141,6 +187,12 @@ const cardStyle = css`
     right: 12px;
     color: ${loveTheme.colors.primary};
     opacity: 0.6;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  &:hover .stamp {
+    opacity: 0.8;
+    transform: scale(1.1);
   }
 
   .initials {
@@ -162,6 +214,7 @@ const identityPromptStyle = css`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  animation: ${fadeInScale} 0.6s ease-out;
 
   button {
     background: ${loveTheme.colors.accent};
@@ -173,6 +226,16 @@ const identityPromptStyle = css`
     color: ${loveTheme.colors.text};
     cursor: pointer;
     width: 200px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    &:active {
+      transform: translateY(1px);
+    }
   }
 `;
 
@@ -184,6 +247,7 @@ const illustrationStyle = css`
   opacity: 0.08;
   pointer-events: none;
   z-index: 0;
+  animation: ${fadeIn} 1s ease-out;
 `;
 
 const toolbarWrapper = css`
@@ -191,6 +255,7 @@ const toolbarWrapper = css`
   top: 1.25rem;
   right: 1.25rem;
   z-index: 10;
+  animation: ${fadeIn} 0.5s ease-out;
 `;
 
 const toolbarStyle = css`
@@ -204,6 +269,11 @@ const toolbarStyle = css`
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   transition: all 0.2s ease;
+  
+  &:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
 `;
 
 const dropdownStyle = css`
@@ -214,24 +284,51 @@ const dropdownStyle = css`
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
   border: 1px solid ${loveTheme.colors.border};
+  animation: ${fadeInScale} 0.3s ease-out;
 
   button {
-background: transparent;
-border: none;
-display: block;
-width: calc(100% - 1.5rem);
-padding: 0.75rem 1rem;
-margin: 0.5rem auto; /* ✅ centers it horizontally */
-text-align: left;
-font-weight: bold;
-color: ${loveTheme.colors.text};
-font-family: ${loveTheme.fonts.body};
-font-size: 0.95rem;
+    background: transparent;
+    border: none;
+    display: block;
+    width: calc(100% - 1.5rem);
+    padding: 0.75rem 1rem;
+    margin: 0.5rem auto;
+    text-align: left;
+    font-weight: bold;
+    color: ${loveTheme.colors.text};
+    font-family: ${loveTheme.fonts.body};
+    font-size: 0.95rem;
+    transition: background 0.15s ease;
 
     &:hover {
       background: ${loveTheme.colors.accent};
     }
   }
+`;
+
+// Page transition container
+const pageTransitionStyle = css`
+  width: 100%;
+  animation: ${fadeInScale} 0.5s ease-out;
+`;
+
+// Initial page loading animation
+const initialLoadingStyle = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #fff8f8, #fff0f3);
+  z-index: 100;
+  animation: ${keyframes`
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+  `} 1.5s forwards;
 `;
 
 
@@ -258,20 +355,34 @@ export default function LoveLettersPage() {
 
   const [letters, setLetters] = useState<LetterMeta[]>([]);
   const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [author, setAuthor] = useState<string | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
 
-
   const fetchLetters = async () => {
-    setLoading(true);
-    const res = await fetch('/api/letters/getAll');
-    const data = await res.json();
-    setLetters(data.letters || []);
-    setLoading(false);
+    try {
+      const res = await fetch('/api/letters/getAll');
+      const data = await res.json();
+      setLetters(data.letters || []);
+  
+      // Add a small delay before removing the loading state
+      setTimeout(() => {
+        setLoading(false);
+      }, 800); // Slightly longer for better animation view
+    } catch (error) {
+      console.error('Failed to fetch letters:', error);
+      setLoading(false);
+    }
   };
-
+  
   useEffect(() => {
+    // Handle initial page loading animation
+    setTimeout(() => {
+      setInitialLoading(false);
+    }, 1500);
+    
+    setLoading(true);
     const stored = localStorage.getItem('user');
     if (stored) setAuthor(stored);
     fetchLetters();
@@ -283,12 +394,29 @@ export default function LoveLettersPage() {
   };
 
   const handleSelectLetter = (stamp: string) => {
+    setLoading(true);
     router.push({ pathname: '/love', query: { datestamp: stamp } });
+    // Add delay to show loading state before navigating
+    setTimeout(() => {
+      setLoading(false);
+    }, 600);
   };
 
   const clearSelection = () => {
+    setLoading(true);
     router.push('/love');
+    setTimeout(() => {
+      setLoading(false);
+    }, 600);
   };
+
+  if (initialLoading) {
+    return (
+      <div css={initialLoadingStyle}>
+        <LoadingState message="Welcome to Love Letters" />
+      </div>
+    );
+  }
 
   if (!author) {
     return (
@@ -304,107 +432,144 @@ export default function LoveLettersPage() {
 
   return (
     <>
-<Head>
-  <title>Love Letters</title>
-  <link rel="icon" type="image/png" href="/love-assets/love-logo.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#f8e1e1" />
-  <meta name="description" content="A heartfelt collection of digital love letters." />
-</Head>
-    <div css={containerStyle}>
-      {/* Top-right toolbar */}
-      <div css={toolbarWrapper}>
-        <div css={toolbarStyle} onClick={() => setShowDropdown(!showDropdown)}>
-          💖 {author}
+      <Head>
+        <title>Love Letters</title>
+        <link rel="icon" type="image/png" href="/love-assets/love-logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#f8e1e1" />
+        <meta name="description" content="A heartfelt collection of digital love letters." />
+      </Head>
+      <div css={containerStyle}>
+        {/* Top-right toolbar */}
+        <div css={toolbarWrapper}>
+          <div css={toolbarStyle} onClick={() => setShowDropdown(!showDropdown)}>
+            💖 {author}
+          </div>
+          {showDropdown && (
+            <div css={dropdownStyle}>
+              {['Aidan', 'Clothilde'].map((name) => (
+                <button
+                  key={name}
+                  onClick={() => {
+                    localStorage.setItem('user', name);
+                    setAuthor(name);
+                    setShowDropdown(false);
+                  }}
+                >
+                  I am {name}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-        {showDropdown && (
-          <div css={dropdownStyle}>
-            {['Aidan', 'Clothilde'].map((name) => (
-              <button
-                key={name}
-                onClick={() => {
-                  localStorage.setItem('user', name);
-                  setAuthor(name);
-                  setShowDropdown(false);
+    
+        {/* Illustration */}
+        <div css={illustrationStyle}>
+          <svg viewBox="0 0 300 300" fill="none">
+            <path
+              d="M150 0C93.0 0 50 50 50 100s50 100 100 150c50-50 100-100 100-150S207 0 150 0z"
+              fill="gray"
+              opacity="0.2"
+              filter="blur(12px)"
+            />
+          </svg>
+        </div>
+    
+        <h1 css={headingStyle}>Love Letters</h1>
+    
+        {loading ? (
+          <LoadingState />
+        ) : (
+          <div css={pageTransitionStyle}>
+            {datestamp ? (
+                <>
+  <div
+    css={css`
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* center children horizontally */
+      width: 100%;
+    `}
+  >
+    <CardContent datestamp={datestamp as string} onBack={clearSelection} />
+  </div>
+</>
+
+            
+            ) : creating ? (
+                <div
+    css={css`
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* center children horizontally */
+      width: 100%;
+    `}
+  >  
+              <CreateLetter
+                onCancel={() => setCreating(false)}
+                onSuccess={(newStamp) => {
+                  setCreating(false);
+                  setLoading(true);
+                  fetchLetters();
+                  setTimeout(() => {
+                    router.push({ pathname: '/love', query: { datestamp: newStamp } });
+                    setLoading(false);
+                  }, 600);
                 }}
+              />
+              </div>
+            ) : (
+                <div
+                css={css`
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center; /* center children horizontally */
+                  width: 100%;
+                `}
               >
-                I am {name}
-              </button>
-            ))}
+              
+                <button css={buttonStyle} onClick={() => setCreating(true)}>
+                  ✍️ Write a New Letter
+                </button>
+    
+                <div css={gridStyle}>
+                  {letters.map((letter, index) => (
+                    <div
+                      css={[cardStyle, staggeredFadeIn(index)]}
+                      key={letter.datestamp}
+                      onClick={() => handleSelectLetter(letter.datestamp)}
+                    >
+                      <div className="stamp">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 256 256"
+                          width="24"
+                          height="24"
+                        >
+                          <path
+                            d="M128,224S24,168,24,102A54,54,0,0,1,78,48c22.59,0,41.94,12.31,50,32,8.06-19.69,27.41-32,50-32a54,54,0,0,1,54,54C232,168,128,224,128,224Z"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="16"
+                          />
+                        </svg>
+                      </div>
+                      <h3>{letter.title}</h3>
+                      <small>By {letter.author}</small>
+                      <div className="meta">
+                        <small>{formatDate(letter.datestamp)}</small>
+                      </div>
+                      <div className="initials">{getInitials(letter.author)}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
-  
-      {/* Illustration */}
-      <div css={illustrationStyle}>
-        <svg viewBox="0 0 300 300" fill="none">
-          <path
-            d="M150 0C93.0 0 50 50 50 100s50 100 100 150c50-50 100-100 100-150S207 0 150 0z"
-            fill="gray"
-            opacity="0.2"
-            filter="blur(12px)"
-          />
-        </svg>
-      </div>
-  
-      <h1 css={headingStyle}>Love Letters</h1>
-  
-      {datestamp ? (
-        <CardContent datestamp={datestamp as string} onBack={clearSelection} />
-      ) : creating ? (
-        <CreateLetter
-          onCancel={() => setCreating(false)}
-          onSuccess={(newStamp) => {
-            setCreating(false);
-            fetchLetters();
-            router.push({ pathname: '/love', query: { datestamp: newStamp } });
-          }}
-        />
-      ) : (
-        <>
-          <button css={buttonStyle} onClick={() => setCreating(true)}>
-            ✍️ Write a New Letter
-          </button>
-  
-          {loading && <p>Loading...</p>}
-  
-          <div css={gridStyle}>
-            {letters.map((letter) => (
-              <div
-                css={cardStyle}
-                key={letter.datestamp}
-                onClick={() => handleSelectLetter(letter.datestamp)}
-              >
-                <div className="stamp">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 256 256"
-                    width="24"
-                    height="24"
-                  >
-                    <path
-                      d="M128,224S24,168,24,102A54,54,0,0,1,78,48c22.59,0,41.94,12.31,50,32,8.06-19.69,27.41-32,50-32a54,54,0,0,1,54,54C232,168,128,224,128,224Z"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                    />
-                  </svg>
-                </div>
-                <h3>{letter.title}</h3>
-                <small>By {letter.author}</small>
-                <div className="meta">
-                  <small>{formatDate(letter.datestamp)}</small>
-                </div>
-                <div className="initials">{getInitials(letter.author)}</div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
     </>
   );
-  
 }
