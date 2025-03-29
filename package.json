@@ -11,6 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@mdx-js/react": "^3.1.0",
+    "@web-std/file": "^3.0.3",
+    "busboy": "^1.6.0",
     "formidable": "^3.5.2",
     "next": "^14.2.26",
     "next-mdx-remote": "^5.0.0",
@@ -24,6 +26,7 @@
     "remark-html": "^16.0.1"
   },
   "devDependencies": {
+    "@types/busboy": "^1.5.4",
     "@types/formidable": "^3.4.5",
     "@types/node": "^20",
     "@types/react": "^18",
