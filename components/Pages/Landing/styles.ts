@@ -1,14 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-const headlineFontSize = '36px';
-const subHeadlineFontSize = '22px';
-const paragraphFontSize = '16px';
-const mainTitleFontSize = '32px';
-const subTitleFontSize = '20px';
-const quoteFontSize = '24px';
-const highlightedTextFontSize = '18px';
-
 export const heroSectionStyles = css`
   display: flex;
   flex-direction: row;

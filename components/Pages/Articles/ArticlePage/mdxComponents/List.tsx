@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { HTMLAttributes } from "react";
 
 const ulStyle = css`
   list-style-type: disc;
@@ -21,5 +22,10 @@ const olStyle = css`
   }
 `;
 
-export const UnorderedList = (props: any) => <ul css={ulStyle} {...props} />;
-export const OrderedList = (props: any) => <ol css={olStyle} {...props} />;
+export const UnorderedList = (props: HTMLAttributes<HTMLUListElement>) => (
+  <ul css={ulStyle} {...props} />
+);
+
+export const OrderedList = (props: HTMLAttributes<HTMLOListElement>) => (
+  <ol css={olStyle} {...props} />
+);

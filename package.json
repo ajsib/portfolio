@@ -11,7 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@mdx-js/react": "^3.1.0",
-    "next": "14.2.13",
+    "formidable": "^3.5.2",
+    "next": "^14.2.26",
     "next-mdx-remote": "^5.0.0",
     "react": "^18",
     "react-dom": "^18",
@@ -20,10 +21,10 @@
     "rehype-highlight": "^7.0.2",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.0",
-    "remark-html": "^16.0.1",
-    "serialize": "link:@/next-mdx-remote/serialize"
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
+    "@types/formidable": "^3.4.5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
