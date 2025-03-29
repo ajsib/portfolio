@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const baseDir = path.join(process.cwd(), 'letters');
+const baseDir = path.join('/tmp', 'letters');
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Only GET allowed' });

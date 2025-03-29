@@ -9,7 +9,7 @@ export const config = {
   },
 };
 
-const baseDir = path.join(process.cwd(), 'letters');
+const baseDir = path.join('/tmp', 'letters');
 
 function sanitizeFilename(filename: string): string {
   const ext = path.extname(filename || '');
