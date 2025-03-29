@@ -64,7 +64,7 @@ const CreateLetter = ({ onCancel, onSuccess }: CreateLetterProps) => {
         <input
           type="text"
           className="letter-input"
-          placeholder="My dearest..."
+          placeholder="Dear lover..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -74,7 +74,7 @@ const CreateLetter = ({ onCancel, onSuccess }: CreateLetterProps) => {
         <div className="label">Letter Content</div>
         <textarea
           className="letter-textarea"
-          placeholder="Write something heartfelt..."
+          placeholder="Tell me about your day..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />

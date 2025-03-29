@@ -1,10 +1,21 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-import { NextApiRequest, NextApiResponse } from 'next';
+// /pages/api/letters/getByStamp.ts
 
-const baseDir = path.join('/tmp', 'letters');
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { connectToDatabase } from '@/utils/mongoose';
+import LetterModel, { LetterDocument } from '@/models/Letter';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+type Response = {
+  title: string;
+  content: string;
+  author: string;
+  images: string[];
+  datestamp: string;
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Response | { error: string }>
+): Promise<void> {
   const { datestamp } = req.query;
 
   if (!datestamp || typeof datestamp !== 'string') {
@@ -12,28 +23,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const dirPath = path.join(baseDir, datestamp);
-    const letterPath = path.join(dirPath, 'letter.json');
+    await connectToDatabase();
 
-    const letterContent = await fs.readFile(letterPath, 'utf-8');
-    const letter = JSON.parse(letterContent);
-
-    // Ensure images are still there — regenerate URLs
-    const imagesDir = path.join(dirPath, 'images');
-    let imageFiles: string[] = [];
-
-    try {
-      imageFiles = await fs.readdir(imagesDir);
-    } catch {
-      imageFiles = [];
+    const date = new Date(datestamp);
+    if (isNaN(date.getTime())) {
+      return res.status(400).json({ error: 'Invalid datestamp' });
     }
 
-    const images = imageFiles.map((img) =>
-      `/api/letters/getImageByStamp?datestamp=${datestamp}&file=${encodeURIComponent(img)}`
-    );
+    const letter = await LetterModel.findOne({ createdAt: date }).lean<LetterDocument>();
 
-    return res.status(200).json({ ...letter, datestamp, images });
-  } catch {
-    return res.status(404).json({ error: 'Letter not found' });
+    if (!letter) {
+      return res.status(404).json({ error: 'Letter not found' });
+    }
+
+    // Transform stored blob paths into secure API image routes
+    const images = (letter.images || []).map((blobPath) => {
+      const file = blobPath.split('/').pop(); // e.g. "0_flower.jpg"
+      return `/api/letters/image?stamp=${encodeURIComponent(datestamp)}&file=${encodeURIComponent(file ?? '')}`;
+    });
+
+    return res.status(200).json({
+      title: letter.title,
+      content: letter.content,
+      author: letter.author,
+      images,
+      datestamp: letter.createdAt.toISOString(),
+    });
+  } catch (err) {
+    console.error('Error fetching letter by datestamp:', err);
+    return res.status(500).json({ error: 'Failed to retrieve letter' });
   }
 }

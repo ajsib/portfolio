@@ -1,30 +1,43 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-import { NextApiRequest, NextApiResponse } from 'next';
+// /pages/api/letters/getAll.ts
 
-const baseDir = path.join('/tmp', 'letters');
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { connectToDatabase } from '@/utils/mongoose';
+import LetterModel from '@/models/Letter';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'GET') return res.status(405).json({ error: 'Only GET allowed' });
+type LetterSummary = {
+  datestamp: string;
+  title: string;
+  author: string;
+};
+
+type Response = {
+  letters: LetterSummary[];
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Response | { error: string }>
+): Promise<void> {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Only GET allowed' });
+  }
 
   try {
-    const dirs = await fs.readdir(baseDir);
-    const letters = await Promise.all(
-      dirs.map(async (dirName) => {
-        const filePath = path.join(baseDir, dirName, 'letter.json');
-        try {
-          const content = await fs.readFile(filePath, 'utf-8');
-          const { title, author } = JSON.parse(content);
-          return { datestamp: dirName, title, author };
-        } catch {
-          return null;
-        }
-      })
-    );
+    await connectToDatabase();
 
-    const filtered = letters.filter(Boolean);
-    return res.status(200).json({ letters: filtered });
-  } catch {
+    const letters = await LetterModel.find({}, 'title author createdAt')
+      .sort({ createdAt: -1 })
+      .lean();
+
+    const formatted: LetterSummary[] = letters.map((letter) => ({
+      datestamp: letter.createdAt.toISOString(),
+      title: letter.title,
+      author: letter.author,
+    }));
+
+    return res.status(200).json({ letters: formatted });
+  } catch (err) {
+    console.error('Failed to fetch letters:', err);
     return res.status(500).json({ error: 'Failed to fetch letters' });
   }
 }

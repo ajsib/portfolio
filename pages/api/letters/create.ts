@@ -1,10 +1,19 @@
 // /pages/api/letters/create.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import path from 'path';
-import Busboy from 'busboy';
 
-// Define response types
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { PassThrough } from 'stream';
+import Busboy from 'busboy';
+import path from 'path';
+import { connectToDatabase } from '@/utils/mongoose';
+import LetterModel from '@/models/Letter';
+import blobServiceClient from '@/utils/blobServiceClient';
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 type SuccessResponse = {
   message: string;
   datestamp: string;
@@ -14,15 +23,19 @@ type ErrorResponse = {
   error: string;
 };
 
-// Define our letter type
-interface Letter {
-  title: string;
-  content: string;
-  author: string;
-  images: string[];
+const validFields = ['title', 'content', 'author'] as const;
+type ValidField = typeof validFields[number];
+
+function isValidField(field: string): field is ValidField {
+  return validFields.includes(field as ValidField);
 }
 
-// Define parsed fields from form
+function sanitizeFilename(filename: string): string {
+  const ext = path.extname(filename || '');
+  const name = path.basename(filename || 'image', ext);
+  return `${name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}${ext}`;
+}
+
 interface ParsedFields {
   title?: string;
   content?: string;
@@ -30,173 +43,93 @@ interface ParsedFields {
   images: string[];
 }
 
-// Export configuration to disable built-in body parser
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-// Define base directory for storing letters
-const baseDir = path.join('/tmp', 'letters');
-
-/**
- * Sanitizes a filename to make it safe for storage
- * @param filename The original filename
- * @returns A sanitized version of the filename
- */
-function sanitizeFilename(filename: string): string {
-  console.log(`Sanitizing filename: ${filename}`);
-  const ext = path.extname(filename || '');
-  const name = path.basename(filename || 'image', ext);
-  const sanitized = `${name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${Date.now()}${ext}`;
-  console.log(`Sanitized filename: ${sanitized}`);
-  return sanitized;
-}
-
-/**
- * API handler for creating letters with file uploads
- */
 export default async function handler(
-  req: NextApiRequest, 
+  req: NextApiRequest,
   res: NextApiResponse<SuccessResponse | ErrorResponse>
 ): Promise<void> {
-  console.log(`Request received: ${req.method} ${req.url}`);
-  
-  // Verify method is POST
+  console.log(`[POST] /api/letters/create`);
+
   if (req.method !== 'POST') {
-    console.log(`Method not allowed: ${req.method}`);
     return res.status(405).json({ error: 'Only POST allowed' });
   }
 
-  // Create timestamp and directory structure
-  const timestamp: string = new Date().toISOString();
-  console.log(`Created timestamp: ${timestamp}`);
-  
-  const dirPath: string = path.join(baseDir, timestamp);
-  const imagesDir: string = path.join(dirPath, 'images');
-  
-  console.log(`Creating directory: ${imagesDir}`);
-  try {
-    await fs.promises.mkdir(imagesDir, { recursive: true });
-    console.log(`Directory created successfully: ${imagesDir}`);
-  } catch (error) {
-    console.error(`Failed to create directory: ${imagesDir}`, error);
-    return res.status(500).json({ error: 'Failed to create storage directory' });
-  }
-
   const fields: ParsedFields = { images: [] };
-  const fileWrites: Promise<void>[] = [];
-  
-  // Create busboy instance with proper typing
-  const busboy = Busboy({ headers: req.headers });
-  
-  // Handle file uploads
-  busboy.on('file', (fieldname: string, file: NodeJS.ReadableStream, info: { filename: string; encoding: string; mimeType: string }) => {
-    const { filename, mimeType } = info;
-    console.log(`File upload detected. Field: ${fieldname}, Filename: ${filename}, MimeType: ${mimeType}`);
-    
-    if (!filename) {
-      console.log('Empty filename detected, skipping file');
-      return;
-    }
-    
-    const safeName: string = sanitizeFilename(filename);
-    const saveTo: string = path.join(imagesDir, safeName);
-    console.log(`Saving file to: ${saveTo}`);
-    
-    const writeStream = fs.createWriteStream(saveTo);
-    file.pipe(writeStream);
-    
-    const writePromise = new Promise<void>((resolve, reject) => {
-      writeStream.on('finish', () => {
-        console.log(`File written successfully: ${saveTo}`);
-        const imagePath = `/api/letters/getImageByStamp?datestamp=${timestamp}&file=${encodeURIComponent(safeName)}`;
-        fields.images.push(imagePath);
-        console.log(`Added image path to letter: ${imagePath}`);
-        resolve();
-      });
-      
-      writeStream.on('error', (err) => {
-        console.error(`Error writing file: ${saveTo}`, err);
-        reject(err);
-      });
+  const fileUploads: Promise<void>[] = [];
+  const datestamp = new Date().toISOString();
+
+  try {
+    const busboy = Busboy({ headers: req.headers });
+    const containerName = process.env.AZURE_STORAGE_CONTAINER_NAME!;
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+
+    let fileIndex = 0;
+
+    busboy.on('file', (fieldname, file, info) => {
+      const { filename, mimeType } = info;
+      if (!filename || !mimeType) return;
+
+      const safeName = sanitizeFilename(filename);
+      const blobPath = `letters/${datestamp}/${fileIndex++}_${safeName}`;
+      const blobClient = containerClient.getBlockBlobClient(blobPath);
+
+      const passthrough = new PassThrough();
+      file.pipe(passthrough);
+
+      const uploadPromise = blobClient
+        .uploadStream(passthrough, 4 * 1024 * 1024, 20, {
+          blobHTTPHeaders: { blobContentType: mimeType },
+        })
+        .then(() => {
+            fields.images.push(blobPath); 
+            console.log(`✅ Uploaded to Azure: ${blobPath}`);
+          })
+        .catch((err) => {
+          console.error('❌ Azure upload failed:', err);
+        });
+
+      fileUploads.push(uploadPromise);
     });
-    
-    fileWrites.push(writePromise);
-  });
-  
-  // Handle form fields
-  const validFields = ['title', 'content', 'author'] as const;
-  type ValidField = typeof validFields[number];
-  
-  function isValidField(field: string): field is ValidField {
-    return validFields.includes(field as ValidField);
-  }
-  
-  busboy.on('field', (fieldname: string, val: string) => {
-    console.log(`Form field received: ${fieldname}=${val}`);
-  
-    if (isValidField(fieldname)) {
-      fields[fieldname] = val;
-    } else {
-      console.log(`Ignoring unknown field: ${fieldname}`);
-    }
-  });
-  
-  // Handle errors
-  busboy.on('error', (err: Error) => {
-    console.error('Busboy error:', err);
-    res.status(500).json({ error: 'File upload failed' });
-  });
-  
-  // Handle completion
-  busboy.on('finish', async () => {
-    console.log('Busboy processing finished');
-    
-    // Extract and validate required fields
+
+    busboy.on('field', (fieldname, value) => {
+      if (isValidField(fieldname)) {
+        fields[fieldname] = value;
+        console.log(`📄 Field received: ${fieldname} = ${value}`);
+      } else {
+        console.warn(`⚠️ Unknown field: ${fieldname}`);
+      }
+    });
+
+    const finished = new Promise<void>((resolve, reject) => {
+      busboy.on('finish', resolve);
+      busboy.on('error', reject);
+    });
+
+    req.pipe(busboy);
+    await finished;
+    await Promise.all(fileUploads);
+
     const { title, content, author, images } = fields;
-    
+
     if (!title || !content || !author) {
-      console.error('Missing required fields', { title: !!title, content: !!content, author: !!author });
       return res.status(400).json({ error: 'Missing required fields' });
     }
-    
-    try {
-      // Wait for all file writes to complete
-      console.log(`Waiting for ${fileWrites.length} file writes to complete`);
-      await Promise.all(fileWrites);
-      console.log('All file writes completed successfully');
-      
-      // Create the letter object with proper typing
-      const letter: Letter = { 
-        title, 
-        content, 
-        author, 
-        images 
-      };
-      
-      // Save letter data
-      const letterPath: string = path.join(dirPath, 'letter.json');
-      console.log(`Saving letter data to: ${letterPath}`);
-      await fs.promises.writeFile(letterPath, JSON.stringify(letter, null, 2));
-      console.log('Letter data saved successfully');
-      
-      // Return success response
-      const response: SuccessResponse = { 
-        message: 'Letter created', 
-        datestamp: timestamp 
-      };
-      
-      console.log('API request completed successfully', response);
-      res.status(201).json(response);
-    } catch (error) {
-      console.error('Error processing letter:', error);
-      res.status(500).json({ error: 'Failed to process letter' });
-    }
-  });
-  
-  // Pipe request to busboy
-  console.log('Starting busboy processing');
-  req.pipe(busboy);
+
+    await connectToDatabase();
+
+    await LetterModel.create({
+      title,
+      content,
+      author,
+      images,
+      createdAt: new Date(datestamp),
+    });
+
+    return res.status(201).json({
+      message: 'Letter created',
+      datestamp,
+    });
+  } catch (err) {
+    console.error('💥 Unexpected error in letter creation:', err);
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
 }

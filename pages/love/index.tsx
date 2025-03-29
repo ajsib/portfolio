@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import CardContent from '@/components/Pages/Love/CardContent';
 import CreateLetter from '@/components/Pages/Love/CreateLetter';
 import { loveTheme } from '@/components/Pages/Love/theme';
+import Head from 'next/head';
 
 interface LetterMeta {
   datestamp: string;
@@ -14,7 +15,7 @@ interface LetterMeta {
 
 const containerStyle = css`
   min-height: 100vh;
-  padding: 1.5rem;
+  padding: 0.75rem;
   font-family: ${loveTheme.fonts.body};
   position: relative;
   overflow: hidden;
@@ -44,10 +45,11 @@ const headingStyle = css`
   font-size: 2.4rem;
   color: ${loveTheme.colors.text};
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
+  margin-top: 3.5rem;
 
   @media (max-width: 480px) {
-    margin-top: 3.5rem; /* ✅ increases top margin on small screens */
+    margin-top: 6.5rem; /* ✅ increases top margin on small screens */
   }
 `;
 
@@ -301,6 +303,14 @@ export default function LoveLettersPage() {
   }
 
   return (
+    <>
+<Head>
+  <title>Love Letters</title>
+  <link rel="icon" type="image/png" href="/love-assets/love-logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f8e1e1" />
+  <meta name="description" content="A heartfelt collection of digital love letters." />
+</Head>
     <div css={containerStyle}>
       {/* Top-right toolbar */}
       <div css={toolbarWrapper}>
@@ -394,6 +404,7 @@ export default function LoveLettersPage() {
         </>
       )}
     </div>
+    </>
   );
   
 }

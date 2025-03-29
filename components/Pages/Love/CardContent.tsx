@@ -321,6 +321,9 @@ const CardContent: React.FC<CardContentProps> = ({
           }
 
           .gallery-item {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
             position: relative;
             overflow: hidden;
             border-radius: 8px;
@@ -396,6 +399,7 @@ const CardContent: React.FC<CardContentProps> = ({
 
           /* Fullscreen Image Viewer */
           .fullscreen-overlay {
+            overflow: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -410,8 +414,10 @@ const CardContent: React.FC<CardContentProps> = ({
           }
 
           .fullscreen-content {
+            overflow: none;
             position: relative;
             max-width: 90vw;
+          
             max-height: 90vh;
           }
 
