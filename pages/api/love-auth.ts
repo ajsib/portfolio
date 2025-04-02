@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const PASSWORD = 'bigfatfuck';
-const VALID_TOKEN = 'lovetoken123'; // You can hash or randomize this if needed
+const PASSWORD = process.env.LOVE_AUTH_PASSWORD;
+const VALID_TOKEN = process.env.LOVE_AUTH_TOKEN;
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
