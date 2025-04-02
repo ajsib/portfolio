@@ -7,6 +7,7 @@ import CreateLetter from '@/components/Pages/Love/CreateLetter';
 import { loveTheme } from '@/components/Pages/Love/theme';
 import Head from 'next/head';
 import LoadingState from '@/components/Pages/Love/LoadingState';
+import PasswordGate from '@/components/Pages/Love/PasswordGate';
 
 interface LetterMeta {
   datestamp: string;
@@ -431,7 +432,7 @@ export default function LoveLettersPage() {
   }
 
   return (
-    <>
+    <PasswordGate>
       <Head>
         <title>Love Letters</title>
         <link rel="icon" type="image/png" href="/love-assets/love-logo.png" />
@@ -570,6 +571,6 @@ export default function LoveLettersPage() {
           </div>
         )}
       </div>
-    </>
+    </PasswordGate>
   );
 }
