@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { HTMLAttributes } from "react";
+
 
 const tableStyle = css`
   width: 100%;
@@ -27,6 +29,6 @@ const tableStyle = css`
   }
 `;
 
-const Table = (props: any) => <table css={tableStyle} {...props} />;
+const Table = (props: HTMLAttributes<HTMLTableElement>) => <table css={tableStyle} {...props} />;
 
 export default Table;

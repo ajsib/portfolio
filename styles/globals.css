@@ -20,29 +20,4 @@ html, body {
   box-sizing: inherit; /* Ensure all elements use border-box */
 }
 
-button {
-  font-family: 'Source Sans Pro', sans-serif;
-  background-color: var(--color-primary);
-  color: var(--text-T1);
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: var(--radius-default);
-  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
 
-  &:hover {
-    background-color: var(--color-accent);
-    transform: translateY(-2px); /* Subtle lift on hover */
-  }
-
-  &:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 4px;
-  }
-
-  &:disabled {
-    background-color: var(--text-T4);
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-}

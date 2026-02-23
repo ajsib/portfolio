@@ -64,7 +64,7 @@ const textOverlay = css`
   - If banner.jpg exists, we display the image behind the overlay
   - Includes the gradient overlay
 */
-const imageBackground = (folderName: string) => css`
+const imageBackground = css`
   position: relative;
   width: 100%;
   height: 100%;
@@ -130,7 +130,7 @@ export default function Banner({
 
       {hasBanner ? (
         /* If banner.jpg exists */
-        <div css={imageBackground(folderName)}>
+        <div css={imageBackground}>
           <Image
             alt="Banner"
             src={imageUrl}

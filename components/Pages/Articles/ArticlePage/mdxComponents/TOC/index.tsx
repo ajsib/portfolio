@@ -53,7 +53,7 @@ const tocStyle = css`
 
 const TOC: React.FC = () => {
   const [headings, setHeadings] = useState<Heading[]>([]);
-  const [showSideView, setShowSideView] = useState(false);
+  const [, setShowSideView] = useState(false);
 
   useEffect(() => {
     // Extract only H1 and H2 headings

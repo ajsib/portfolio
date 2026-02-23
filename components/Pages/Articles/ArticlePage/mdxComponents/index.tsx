@@ -24,7 +24,7 @@ const customComponents = {
     return <pre {...props} />;
   },
   code: (props: React.HTMLProps<HTMLElement>) => {
-    const { children, className, ...rest } = props;
+    const { children, ...rest } = props;
     return <InlineCode {...rest}>{children}</InlineCode>;
   },
   table: Table,

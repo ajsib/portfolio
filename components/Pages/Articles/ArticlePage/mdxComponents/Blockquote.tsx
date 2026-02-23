@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { HTMLAttributes } from "react";
 
 const blockquoteStyle = css`
   background-color: var(--background-alternate);
@@ -10,6 +11,8 @@ const blockquoteStyle = css`
   border-radius: var(--border-radius-large);
 `;
 
-const Blockquote = (props: any) => <blockquote css={blockquoteStyle} {...props} />;
+const Blockquote = (props: HTMLAttributes<HTMLQuoteElement>) => (
+  <blockquote css={blockquoteStyle} {...props} />
+);
 
 export default Blockquote;

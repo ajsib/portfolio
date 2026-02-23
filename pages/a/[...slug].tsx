@@ -5,6 +5,7 @@ import { GetServerSideProps } from "next";
 import { serialize } from "next-mdx-remote/serialize";
 import ArticlePage from "@/components/Pages/Articles/ArticlePage";
 import { mdxConfig } from "@/components/Pages/Articles/ArticlePage/utils/mdxConfig";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
 /** 
  * If the URL is /article/sample-article/sub-article
@@ -22,10 +23,10 @@ interface Metadata {
 
 // Server-side Props Interface
 interface Props {
-  content: any;
-  metadata: Metadata; // Metadata can be null if not found
-  slugPath: string[]; // Store the entire slug array for reference
-  hasBanner: boolean; // Indicates if a banner image exists
+  content: MDXRemoteSerializeResult;
+  metadata: Metadata;
+  slugPath: string[];
+  hasBanner: boolean;
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({
